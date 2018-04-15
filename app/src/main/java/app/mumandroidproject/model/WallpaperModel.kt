@@ -1,5 +1,6 @@
 package app.mumandroidproject.model
 
+import app.mumandroidproject.bean.WallpaperCategory
 import app.mumandroidproject.bean.WallpaperItem
 
 /**
@@ -20,8 +21,10 @@ class WallpaperModel {
         return null
     }
 
-    fun getWallpaperByCatelog(catelog: String): List<WallpaperItem>? {
+    fun getWallpaperByCatelog(category: WallpaperCategory): List<WallpaperItem>? {
         return null
     }
+
+
 
 }
