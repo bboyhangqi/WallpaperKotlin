@@ -17,11 +17,11 @@ class WallpaperModel {
     }
 
 
-    fun getCatelogs(): List<String>? {
+    fun getCategories(): List<WallpaperCategory>? {
         return null
     }
 
-    fun getWallpaperByCatelog(category: WallpaperCategory): List<WallpaperItem>? {
+    fun getWallpaperByCategory(category: WallpaperCategory): List<WallpaperItem>? {
         return null
     }
 

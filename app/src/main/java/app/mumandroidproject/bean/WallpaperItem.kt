@@ -6,5 +6,5 @@ package app.mumandroidproject.bean
 data class WallpaperItem(var url: String
                          , var name: String
                          , var dec: String
-                         , var catelog: String
+                         , var like: String
                          , var date: String)
