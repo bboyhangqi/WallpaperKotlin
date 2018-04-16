@@ -15,6 +15,13 @@ import app.mumandroidproject.R
  */
 class HotFragment : Fragment() {
 
+    object HOLDER {
+        val INSTANCE by lazy { HotFragment() }
+    }
+
+    companion object {
+        val instance = HOLDER.INSTANCE
+    }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {

@@ -13,7 +13,7 @@ import app.mumandroidproject.R
 /**
  * A simple [Fragment] subclass.
  */
-class CategoryFragment : Fragment() {
+class BlankFragment : Fragment() {
 
     object HOLDER {
         val INSTANCE by lazy { HotFragment() }
@@ -25,10 +25,7 @@ class CategoryFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        return inflater!!.inflate(R.layout.fragment_category, container, false)
+        return inflater!!.inflate(R.layout.fragment_blank, container, false)
     }
-
-
-
 
 }
