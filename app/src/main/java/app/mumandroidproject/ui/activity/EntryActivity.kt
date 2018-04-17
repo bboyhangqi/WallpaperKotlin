@@ -6,9 +6,10 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import android.os.Bundle
+import android.util.Log
 
 import app.mumandroidproject.R
-import app.mumandroidproject.ui.fragment.BlankFragment
+import app.mumandroidproject.ui.fragment.LocalFragment
 import app.mumandroidproject.ui.fragment.CategoryFragment
 import app.mumandroidproject.ui.fragment.HotFragment
 import kotlinx.android.synthetic.main.activity_entry.*
@@ -26,10 +27,11 @@ class EntryActivity : AppCompatActivity() {
 
     inner class SectionsPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
         override fun getItem(position: Int): Fragment? {
+            Log.d("SectionsPagerAdapter",position.toString())
             when (position) {
                 0 -> return HotFragment.instance
                 1 -> return CategoryFragment.instance
-                2 -> return BlankFragment.instance
+                2 -> return LocalFragment.instance
             }
             return null
         }

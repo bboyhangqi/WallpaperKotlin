@@ -13,10 +13,10 @@ import app.mumandroidproject.R
 /**
  * A simple [Fragment] subclass.
  */
-class BlankFragment : Fragment() {
+class LocalFragment : Fragment() {
 
     object HOLDER {
-        val INSTANCE by lazy { HotFragment() }
+        val INSTANCE by lazy { LocalFragment() }
     }
 
     companion object {
