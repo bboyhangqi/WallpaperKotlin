@@ -13,21 +13,13 @@ import app.mumandroidproject.R
 /**
  * A simple [Fragment] subclass.
  */
-class HotFragment : Fragment() {
-
-    object HOLDER {
-        val INSTANCE by lazy { HotFragment() }
-    }
-
-    companion object {
-        val instance = HOLDER.INSTANCE
-    }
+class BlankFragment : Fragment() {
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_hot, container, false)
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_blank2, container, false)
     }
 
-
-}
+}// Required empty public constructor

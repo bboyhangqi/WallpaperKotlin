@@ -16,16 +16,16 @@ import app.mumandroidproject.R
 class LocalFragment : Fragment() {
 
     object HOLDER {
-        val INSTANCE by lazy { LocalFragment() }
+        val INSTANCE by lazy { HotFragment() }
     }
 
     companion object {
         val instance = HOLDER.INSTANCE
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        return inflater!!.inflate(R.layout.fragment_blank, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_blank, container, false)
     }
+
 
 }

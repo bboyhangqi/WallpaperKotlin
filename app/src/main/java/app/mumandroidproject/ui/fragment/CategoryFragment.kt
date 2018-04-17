@@ -30,10 +30,8 @@ class CategoryFragment : Fragment() {
         val instance = HOLDER.INSTANCE
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        Log.d(TAG,"..zhq.debug......")
-        return inflater!!.inflate(R.layout.fragment_category, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_category, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -41,10 +39,6 @@ class CategoryFragment : Fragment() {
         val categoryAdapter = CategoryAdapter(Constant.CATEGORY.categoryList)
         rv.layoutManager = LinearLayoutManager(this.context)
         rv.adapter = categoryAdapter
-    }
-
-    override fun onStart() {
-        super.onStart()
     }
 
 

@@ -27,8 +27,8 @@ class CategoryAdapter(var data: List<WallpaperCategory>) : RecyclerView.Adapter<
         holder.itemView.findViewById<View>(R.id.root).setOnClickListener { onClick(it, data[position].requestId) }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
-        var view = LayoutInflater.from(parent?.context).inflate(R.layout.category_item, parent, false)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        var view = LayoutInflater.from(parent.context).inflate(R.layout.category_item, parent, false)
         return ViewHolder(view)
     }
 
