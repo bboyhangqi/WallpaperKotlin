@@ -4,19 +4,13 @@ import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.widget.LinearLayout
 import app.mumandroidproject.bean.WallpaperItem
-import android.R.attr.y
-import android.R.attr.x
 import android.graphics.Point
-import android.util.Log
 import android.view.*
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
 import app.mumandroidproject.R
 import app.mumandroidproject.extension.loadByGlide
-import app.mumandroidproject.extension.loadImage
-import app.mumandroidproject.helper.VolleyHelper
-import com.android.volley.toolbox.NetworkImageView
 
 
 /**
