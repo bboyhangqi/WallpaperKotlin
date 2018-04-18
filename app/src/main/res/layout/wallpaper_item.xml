@@ -9,6 +9,7 @@
         android:id="@+id/rl_head"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:clickable="true"
         android:visibility="gone">
 
         <ImageView
