@@ -13,8 +13,8 @@ class ColumnActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_column)
+        val category = intent.getStringExtra("category")
         rv.layoutManager = LinearLayoutManager(this)
-
         val data = mutableListOf<WallpaperItem>()
         data.add(WallpaperItem("https://images4.alphacoders.com/876/876898.jpg", "", "", "", ""))
         data.add(WallpaperItem("http://www.wallfizz.com/nature/nuage/6243-couche-nuageuse-WallFizz.jpg", "", "", "", ""))
@@ -28,7 +28,7 @@ class ColumnActivity : AppCompatActivity() {
         data.add(WallpaperItem("http://www.backgroundimageshd.com/wp-content/uploads/2017/12/Mountains-1920x1080-Wallpapers38-.jpg", "", "", "", ""))
         data.add(WallpaperItem("http://www.backgroundimageshd.com/wp-content/uploads/2017/12/Interesting-Star-Wars-1920x108036-.jpg", "", "", "", ""))
 
-        val columnAdapter = ColumnAdapter(data, windowManager)
+        val columnAdapter = ColumnAdapter(data, category, windowManager)
         rv.adapter = columnAdapter
     }
 

@@ -6,7 +6,7 @@ import app.mumandroidproject.bean.WallpaperItem
 /**
  * Created by CodingHome on 4/14/18.
  */
-class WallpaperModel {
+class WallpaperModel private constructor(){
 
     object HOLDER {
         val INSTANCE by lazy { WallpaperModel() }
