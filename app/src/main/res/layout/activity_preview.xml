@@ -6,39 +6,49 @@
     android:layout_height="match_parent"
     tools:context=".ui.activity.PreviewActivity">
 
+    <ImageView
+        android:id="@+id/iv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop" />
+
     <Button
         android:id="@+id/btn_back"
         android:layout_width="55dp"
         android:layout_height="55dp"
         android:layout_margin="15dp"
-        android:background="@drawable/back_btn_selector" />
+        android:background="@drawable/back_btn_selector"
+        android:onClick="back" />
 
     <Button
         android:id="@+id/btn_set_wallpaper"
-        android:layout_width="55dp"
-        android:layout_height="55dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="18dp"
-        android:background="@drawable/set_btn_selector" />
+        android:background="@drawable/set_btn_selector"
+        android:onClick="setWallpaper" />
 
     <Button
         android:id="@+id/btn_down"
-        android:layout_width="55dp"
-        android:layout_height="55dp"
-        android:layout_alignBottom="@+id/btn_set_wallpaper"
-        android:layout_marginEnd="20dp"
-        android:layout_toStartOf="@+id/btn_set_wallpaper"
-        android:background="@drawable/down_btn_selector" />
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignBottom="@id/btn_set_wallpaper"
+        android:layout_marginRight="20dp"
+        android:layout_toStartOf="@id/btn_set_wallpaper"
+        android:background="@drawable/down_btn_selector"
+        android:onClick="downLoad" />
 
     <Button
         android:id="@+id/btn_collect"
-        android:layout_width="55dp"
-        android:layout_height="55dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_alignBottom="@+id/btn_set_wallpaper"
         android:layout_marginStart="20dp"
         android:layout_toEndOf="@+id/btn_set_wallpaper"
-        android:background="@drawable/collect_btn_selector" />
+        android:background="@drawable/collect_btn_selector"
+        android:onClick="collect" />
 
 
 </RelativeLayout>

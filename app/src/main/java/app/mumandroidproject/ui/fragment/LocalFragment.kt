@@ -16,7 +16,7 @@ import app.mumandroidproject.R
 class LocalFragment : Fragment() {
 
     object HOLDER {
-        val INSTANCE by lazy { HotFragment() }
+        val INSTANCE by lazy { LocalFragment() }
     }
 
     companion object {

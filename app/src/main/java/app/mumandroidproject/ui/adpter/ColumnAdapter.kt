@@ -101,15 +101,15 @@ class ColumnAdapter(var data: List<WallpaperItem>, var categoryName: String, win
 
         override fun onClick(v: View?) {
             when (v?.id) {
-                R.id.iv1 -> goToPreview(itemForIv1?.url)
-                R.id.iv2 -> goToPreview(itemForIv2?.url)
-                R.id.rl_head -> goToPreview(itemHead?.url)
+                R.id.iv1 -> goToPreview(itemForIv1)
+                R.id.iv2 -> goToPreview(itemForIv2)
+                R.id.rl_head -> goToPreview(itemHead)
             }
         }
 
-        private fun goToPreview(url: String?) {
+        private fun goToPreview(wallpaperItem: WallpaperItem?) {
             val intent = Intent(itemView.context, PreviewActivity::class.java)
-            intent.putExtra("url", url)
+            intent.putExtra("wallpaperItem", wallpaperItem)
             itemView.context.startActivity(intent)
         }
     }
