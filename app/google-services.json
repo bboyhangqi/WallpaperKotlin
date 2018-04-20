@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "771868191148",
+    "firebase_url": "https://backgroundpicture-bd6a4.firebaseio.com",
+    "project_id": "backgroundpicture-bd6a4",
+    "storage_bucket": "backgroundpicture-bd6a4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:771868191148:android:9f0864c6923c09fe",
+        "android_client_info": {
+          "package_name": "app.mumandroidproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "771868191148-vancdd2osfj2jb2d6otn1pukudr0rkfc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "app.mumandroidproject",
+            "certificate_hash": "cb97b4a488bb957182793c994edd9d4c45a9f7f3"
+          }
+        },
+        {
+          "client_id": "771868191148-k2bdu8bie07jnv98kgeleumbcfl5rhm8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCx-6jY8Twnq6_K0OZX2DgJtLzqYwNRNsY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "771868191148-k2bdu8bie07jnv98kgeleumbcfl5rhm8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
