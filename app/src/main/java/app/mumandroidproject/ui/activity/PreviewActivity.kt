@@ -1,8 +1,10 @@
 package app.mumandroidproject.ui.activity
 
 import android.graphics.Bitmap
+import android.os.Build
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.annotation.RequiresApi
 import android.util.Log
 import android.view.View
 import app.mumandroidproject.R
@@ -13,10 +15,14 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import kotlinx.android.synthetic.main.activity_preview.*
 import android.widget.Toast
-import android.app.WallpaperManager
 import app.mumandroidproject.bean.WallpaperItem
 import app.mumandroidproject.helper.LocalHelper
-import java.io.IOException
+import app.mumandroidproject.helper.NotificationHelper
+import app.mumandroidproject.helper.WallpaperHelper
+import io.reactivex.Observable
+import io.reactivex.ObservableOnSubscribe
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
 
 class PreviewActivity : AppCompatActivity(), RequestListener<Bitmap> {
@@ -41,6 +47,7 @@ class PreviewActivity : AppCompatActivity(), RequestListener<Bitmap> {
             Toast.makeText(this, "fail to download wallpaper", Toast.LENGTH_SHORT).show()
         }
         LocalHelper.storeToAlternateSd(bitmap, wallpaperItem!!.name)
+        NotificationHelper.sendMsg(this,"Notice","wallpaper download success",R.drawable.rotatebigbk)
     }
 
 
@@ -49,14 +56,16 @@ class PreviewActivity : AppCompatActivity(), RequestListener<Bitmap> {
             Toast.makeText(this, "fail to set wallpaper", Toast.LENGTH_SHORT).show()
             return
         }
-        val myWallpaperManager = WallpaperManager.getInstance(this)
-        try {
-            myWallpaperManager.setBitmap(bitmap)
-            LocalHelper.storeToAlternateSd(bitmap, wallpaperItem!!.name)
-        } catch (e: IOException) {
-            Toast.makeText(this, "fail to set wallpaper", Toast.LENGTH_SHORT).show()
-        }
+        Observable.create(ObservableOnSubscribe<Unit> { e -> e.onNext(WallpaperHelper.setWallpaper(bitmap, this)) })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    LocalHelper.storeToAlternateSd(bitmap, wallpaperItem!!.name)
+                    NotificationHelper.sendMsg(this,"Notice","set wallpaper success",R.drawable.rotatebigbk)
+                    Toast.makeText(this, "set wallpaper success", Toast.LENGTH_SHORT).show()
+                })
     }
+
 
     fun collect(view: View) {
         //LocalHelper.getLocalImages()?.forEach { Log.d(TAG, "path: $it") }
