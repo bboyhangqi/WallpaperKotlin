@@ -16,6 +16,7 @@ import com.bumptech.glide.request.target.Target
 import kotlinx.android.synthetic.main.activity_preview.*
 import android.widget.Toast
 import app.mumandroidproject.bean.WallpaperItem
+import app.mumandroidproject.extension.loadByGlideFromLocal
 import app.mumandroidproject.helper.LocalHelper
 import app.mumandroidproject.helper.NotificationHelper
 import app.mumandroidproject.helper.WallpaperHelper
@@ -30,7 +31,6 @@ class PreviewActivity : AppCompatActivity(), RequestListener<Bitmap> {
     private val TAG = "PreviewActivity"
     private var bitmap: Bitmap? = null
     private var wallpaperItem: WallpaperItem? = null
-    
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,13 +39,11 @@ class PreviewActivity : AppCompatActivity(), RequestListener<Bitmap> {
         loadImage()
     }
 
-    fun loadImage(){
+    fun loadImage() {
         var flag = intent.getStringExtra("flag")
         when (flag) {
-            "local" -> {
-                var path = intent.getStringExtra("path")
-                iv.loadByGlide(wallpaperItem?.url, this)
-            }
+            "local" -> iv.loadByGlideFromLocal(intent.getStringExtra("path"))
+
             "online" -> {
                 wallpaperItem = intent.getSerializableExtra("wallpaperItem") as WallpaperItem
                 iv.loadByGlide(wallpaperItem?.url, this)

@@ -46,13 +46,11 @@
         android:id="@+id/iv1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:scaleType="fitXY"
-        android:src="@drawable/cid_dongman" />
+        android:scaleType="fitXY" />
 
     <ImageView
         android:id="@+id/iv2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:scaleType="fitXY"
-        android:src="@drawable/cid_aiqing" />
+        android:scaleType="fitXY" />
 </LinearLayout>

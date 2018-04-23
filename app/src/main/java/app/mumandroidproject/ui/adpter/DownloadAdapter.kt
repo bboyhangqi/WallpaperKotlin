@@ -3,7 +3,6 @@ package app.mumandroidproject.ui.adpter
 import android.content.Intent
 import android.graphics.Point
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,18 +13,19 @@ import app.mumandroidproject.R
 import app.mumandroidproject.bean.LocalImageItem
 import app.mumandroidproject.extension.loadByGlideFromLocal
 import app.mumandroidproject.ui.activity.PreviewActivity
+import app.mumandroidproject.ui.dialog.PresentationDialog
 
 /**
  * Created by CodingHome on 4/22/18.
  */
-class DownloadAdapter(var data: List<LocalImageItem?>, windowManager: WindowManager) : RecyclerView.Adapter<DownloadAdapter.ViewHolder>() {
+class DownloadAdapter(var data: List<LocalImageItem>, windowManager: WindowManager) : RecyclerView.Adapter<DownloadAdapter.ViewHolder>() {
 
     private val TAG = "DownloadAdpter"
 
-    var screenWidth: Int = 0
-    var screenHeight: Int = 0
+    private var screenWidth: Int = 0
+    private var screenHeight: Int = 0
 
-    var itemList = mutableListOf<Array<LocalImageItem?>>()
+    private var itemList = mutableListOf<Array<LocalImageItem>>()
 
 
     init {
@@ -34,12 +34,11 @@ class DownloadAdapter(var data: List<LocalImageItem?>, windowManager: WindowMana
         display.getSize(size)
         screenWidth = size.x
         screenHeight = size.y
-        data.forEachIndexed { index, item ->
-            if (index % 2 == 0) {
-                if (index + 1 < data.size)
-                    itemList.add(arrayOf(data[index], data[index + 1]))
-                else
-                    itemList.add(arrayOf(data[index]))
+        for ((index, value) in data.withIndex()) {
+            if (index + 1 == data.size) {
+                if (index % 2 == 0) itemList.add(arrayOf(data[index]))
+            } else {
+                if (index % 2 == 0) itemList.add(arrayOf(data[index], data[index + 1]))
             }
         }
     }
@@ -50,25 +49,24 @@ class DownloadAdapter(var data: List<LocalImageItem?>, windowManager: WindowMana
     }
 
     override fun getItemCount(): Int {
-        return (data.size) / 2
+        return itemList.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-
         val imageWidth: Int
-        holder.iv2.visibility = View.VISIBLE
         holder.iv1.visibility = View.VISIBLE
-        imageWidth = screenWidth / 2
+        imageWidth = screenWidth / 2 - 30
         holder.iv1.layoutParams = LinearLayout.LayoutParams(imageWidth, imageWidth)
-        holder.iv1.setPadding(0, 2, 2, 2)
-        holder.iv2.layoutParams = LinearLayout.LayoutParams(imageWidth, imageWidth)
-        holder.iv2.setPadding(2, 2, 0, 2)
-        Log.d(TAG, "..zhq.debug...onBindViewHolder...path  ${itemList[position][0]?.path}")
-        Log.d(TAG, "..zhq.debug...onBindViewHolder...path  ${itemList[position][1]?.path}")
-        holder.iv1.loadByGlideFromLocal(itemList[position][0]?.path)
-        holder.iv2.loadByGlideFromLocal(itemList[position][1]?.path)
+        holder.iv1.setPadding(25, 10, 0, 10)
+        holder.iv1.loadByGlideFromLocal(itemList[position][0].path)
         holder.itemForIv1 = itemList[position][0]
-        holder.itemForIv2 = itemList[position][1]
+        if (itemList[position].size == 2) {
+            holder.iv2.visibility = View.VISIBLE
+            holder.iv2.layoutParams = LinearLayout.LayoutParams(imageWidth, imageWidth)
+            holder.iv2.setPadding(0, 10, 0, 10)
+            holder.iv2.loadByGlideFromLocal(itemList[position][1].path)
+            holder.itemForIv2 = itemList[position][1]
+        }
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
@@ -82,6 +80,13 @@ class DownloadAdapter(var data: List<LocalImageItem?>, windowManager: WindowMana
         init {
             iv1.setOnClickListener(this)
             iv2.setOnClickListener(this)
+            iv1.setOnLongClickListener { deleteImage() }
+            iv2.setOnLongClickListener { deleteImage() }
+        }
+
+        fun deleteImage(): Boolean {
+            PresentationDialog(itemView.context).show()
+            return true
         }
 
         override fun onClick(v: View?) {

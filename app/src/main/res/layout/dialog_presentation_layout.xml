@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<app.mumandroidproject.ui.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#66000000">
+
+    <app.mumandroidproject.ui.percent.PercentRelativeLayout
+        android:id="@+id/dialog_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/dialog_presentation_bg"
+        app:layout_heightPercent="25%"
+        app:layout_widthPercent="75%">
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            app:layout_heightPercent="67%">
+
+            <TextView
+                android:id="@+id/content_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:text="@string/dialog_remove_image"
+                android:textColor="#DE000000"
+                android:textSize="@dimen/btn_text_size"
+                app:layout_marginTopPercent="25%"
+                android:layout_centerVertical="true"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/dark_gray"
+                android:layout_alignParentBottom="true"/>
+
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal"
+            app:layout_heightPercent="33%">
+
+            <TextView
+                android:id="@+id/btn_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:gravity="center"
+                android:text="@string/button_cancel"
+                android:textColor="@color/btn_text_color"
+                android:textSize="@dimen/btn_text_size" />
+
+            <View
+                android:layout_width="1px"
+                android:layout_height="match_parent"
+                android:background="@color/dark_gray"/>
+
+            <TextView
+                android:id="@+id/btn_ok"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:gravity="center"
+                android:text="@string/button_ok"
+                android:textColor="@color/btn_text_color"
+                android:textSize="@dimen/btn_text_size" />
+
+        </LinearLayout>
+
+        <!--<ImageView
+            android:id="@+id/iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            app:layout_heightPercent="33%"
+            app:layout_marginTopPercent="20%"
+            app:layout_widthPercent="25%" />
+
+        <TextView
+            android:id="@+id/tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="@string/loading_wallpaper"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/dialog_loading_textsize"
+            app:layout_marginTopPercent="62%" />-->
+
+
+    </app.mumandroidproject.ui.percent.PercentRelativeLayout>
+
+
+</app.mumandroidproject.ui.percent.PercentRelativeLayout>
