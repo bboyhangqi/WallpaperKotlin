@@ -30,13 +30,29 @@ class PreviewActivity : AppCompatActivity(), RequestListener<Bitmap> {
     private val TAG = "PreviewActivity"
     private var bitmap: Bitmap? = null
     private var wallpaperItem: WallpaperItem? = null
+    
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_preview)
-        wallpaperItem = intent.getSerializableExtra("wallpaperItem") as WallpaperItem
-        iv.loadByGlide(wallpaperItem?.url, this)
+        loadImage()
     }
+
+    fun loadImage(){
+        var flag = intent.getStringExtra("flag")
+        when (flag) {
+            "local" -> {
+                var path = intent.getStringExtra("path")
+                iv.loadByGlide(wallpaperItem?.url, this)
+            }
+            "online" -> {
+                wallpaperItem = intent.getSerializableExtra("wallpaperItem") as WallpaperItem
+                iv.loadByGlide(wallpaperItem?.url, this)
+            }
+        }
+    }
+
 
     fun back(view: View) {
         finish()
@@ -47,7 +63,7 @@ class PreviewActivity : AppCompatActivity(), RequestListener<Bitmap> {
             Toast.makeText(this, "fail to download wallpaper", Toast.LENGTH_SHORT).show()
         }
         LocalHelper.storeToAlternateSd(bitmap, wallpaperItem!!.name)
-        NotificationHelper.sendMsg(this,"Notice","wallpaper download success",R.drawable.rotatebigbk)
+        NotificationHelper.sendMsg(this, "Notice", "wallpaper download success", R.drawable.ok)
     }
 
 
@@ -61,7 +77,7 @@ class PreviewActivity : AppCompatActivity(), RequestListener<Bitmap> {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     LocalHelper.storeToAlternateSd(bitmap, wallpaperItem!!.name)
-                    NotificationHelper.sendMsg(this,"Notice","set wallpaper success",R.drawable.rotatebigbk)
+                    NotificationHelper.sendMsg(this, "Notice", "set wallpaper success", R.drawable.rotatebigbk)
                     Toast.makeText(this, "set wallpaper success", Toast.LENGTH_SHORT).show()
                 })
     }

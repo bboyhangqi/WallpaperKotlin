@@ -9,8 +9,8 @@ import app.mumandroidproject.view.ColumnView
  */
 class CategoryPresenter(var columnView: ColumnView) {
 
-    fun getImagesByCategory(cateGoryId: Int) {
-        //WallpaperModel.instance.getWallpaperByCategory()
+    fun getImagesByCategory(category: String) {
+        //WallpaperModel.instance.getWallpaperByCategory(category)
         val data = mutableListOf<WallpaperItem>()
         data.add(WallpaperItem("https://images4.alphacoders.com/876/876898.jpg", "876898", "", "", ""))
         data.add(WallpaperItem("http://www.wallfizz.com/nature/nuage/6243-couche-nuageuse-WallFizz.jpg", "6243-couche-nuageuse-WallFizz", "", "", ""))

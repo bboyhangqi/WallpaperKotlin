@@ -2,6 +2,7 @@ package app.mumandroidproject.model
 
 import app.mumandroidproject.bean.WallpaperCategory
 import app.mumandroidproject.bean.WallpaperItem
+import app.mumandroidproject.constant.Constant
 
 /**
  * Created by CodingHome on 4/14/18.
@@ -21,7 +22,11 @@ class WallpaperModel private constructor() {
         return null
     }
 
-    fun getWallpaperByCategory(url: String): List<WallpaperItem>? {
+    fun getWallpaperByCategory(category: String): List<WallpaperItem>? {
+        return null
+    }
+
+    fun getAllWallpapers(): List<WallpaperItem>? {
         return null
     }
 

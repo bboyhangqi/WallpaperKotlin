@@ -13,6 +13,7 @@ import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions.withCross
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
+import java.io.File
 
 
 /**
@@ -40,10 +41,17 @@ fun ImageView.loadByGlide(rid: Int) {
     Glide.with(this.context)
             .asBitmap()
             .load(rid)
+            .transition(withCrossFade())
+            .into(this)
+}
+
+fun ImageView.loadByGlideFromLocal(url: String?) {
+    Glide.with(this)
+            .load(File(url))
             .into(this)
 }
 
 
-fun NetworkImageView.loadImage(url: String?) {
+fun NetworkImageView.loadImageByVolley(url: String?) {
     this.setImageUrl(url, VolleyHelper.getInstance(this.context).ivLoader)
 }

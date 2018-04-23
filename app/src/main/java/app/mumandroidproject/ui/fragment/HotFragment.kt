@@ -10,6 +10,7 @@ import android.view.ViewGroup
 
 import app.mumandroidproject.R
 import app.mumandroidproject.constant.Constant
+import app.mumandroidproject.model.WallpaperModel
 import app.mumandroidproject.ui.adpter.CategoryAdapter
 import app.mumandroidproject.ui.adpter.HotAdapter
 import kotlinx.android.synthetic.main.fragment_category.*
@@ -34,11 +35,18 @@ class HotFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_hot, container, false)
     }
 
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         val hotAdapter = HotAdapter(Constant.CATEGORY.categoryList)
         rv.layoutManager = LinearLayoutManager(this.context)
         rv.adapter = hotAdapter
+    }
+
+
+    fun getWallpaperItems(){
+        WallpaperModel.instance.getAllWallpapers()
+        //sort
     }
 
 }

@@ -24,7 +24,7 @@ class CategoryAdapter(var data: List<WallpaperCategory>) : RecyclerView.Adapter<
         holder.imageView.setImageResource(data[position].rId)
         holder.name.text = data[position].name
         holder.count.text = data[position].count
-        holder.itemView.findViewById<View>(R.id.root).setOnClickListener { onClick(it, data[position].requestId, data[position].name) }
+        holder.itemView.findViewById<View>(R.id.root).setOnClickListener { onClick(it, data[position].category) }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -32,9 +32,8 @@ class CategoryAdapter(var data: List<WallpaperCategory>) : RecyclerView.Adapter<
         return ViewHolder(view)
     }
 
-    fun onClick(view: View, requestId: Int, category: String) {
+    fun onClick(view: View, category: String) {
         var intent = Intent(view.context, ColumnActivity::class.java)
-        intent.putExtra("requestId", requestId)
         intent.putExtra("category", category)
         view.context.startActivity(intent)
     }

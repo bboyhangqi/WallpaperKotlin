@@ -12,8 +12,7 @@ import kotlinx.android.synthetic.main.activity_column.*
 
 class ColumnActivity : AppCompatActivity(), ColumnView {
 
-    private val categoryTitle by lazy { intent.getStringExtra("category") }
-    private val categoryRequestId by lazy { intent.getIntExtra("requestId", -1) }
+    private val category by lazy { intent.getStringExtra("category") }
 
     private val categoryPresenter by lazy { CategoryPresenter(this) }
 
@@ -21,11 +20,11 @@ class ColumnActivity : AppCompatActivity(), ColumnView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_column)
         rv.layoutManager = LinearLayoutManager(this)
-        categoryPresenter.getImagesByCategory(categoryRequestId)
+        categoryPresenter.getImagesByCategory(category)
     }
 
     override fun setWallpapers(wallpapers: List<WallpaperItem>) {
-        val columnAdapter = ColumnAdapter(wallpapers, categoryTitle, windowManager)
+        val columnAdapter = ColumnAdapter(wallpapers, category, windowManager)
         rv.adapter = columnAdapter
     }
 
