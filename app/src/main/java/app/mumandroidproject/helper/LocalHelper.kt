@@ -28,16 +28,8 @@ class LocalHelper private constructor() {
 
         private val LOCAL_FILE_DIR = Environment.getExternalStorageDirectory().toString() + File.separator + "Wallpapers" + File.separator
 
-        fun getLocalImages(): List<String> {
-            val dir = File(LOCAL_FILE_DIR)
-            Log.d(TAG, "exists ${dir.exists()}")
-            Log.d(TAG, "path $LOCAL_FILE_DIR")
-            if (!dir.exists()) return listOf()
-            return dir.list { dir, name -> name.endsWith(".jpg") }.map { LOCAL_FILE_DIR+it }
-        }
-
-        fun storeToAlternateSd(bmp: Bitmap?, title: String) {
-            if (bmp == null) return
+        fun storeToAlternateSd(bmp: Bitmap?, title: String): String {
+            if (bmp == null) return ""
             val sdCardDirectory = File(LOCAL_FILE_DIR)
             if (!sdCardDirectory.exists())
                 sdCardDirectory.mkdir()
@@ -53,6 +45,7 @@ class LocalHelper private constructor() {
             } finally {
                 imageOut.close()
             }
+            return image.absolutePath
 
         }
     }
