@@ -23,19 +23,12 @@ class HotAdapter(var data: MutableList<WallpaperItem>) : RecyclerView.Adapter<Ho
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-<<<<<<< HEAD
         Log.d("Nhan123", data.toString())
         holder.imageView.loadByGlide(data[position].url)
         holder.date.text = data[position].date
         holder.description.text = data[position].dec
         holder.like.text = data[position].like
 //        holder.itemView.findViewById<View>(R.id.root).setOnClickListener { onClick(it, data[position].requestId, data[position].name) }
-=======
-        holder.imageView.setImageResource(data[position].rId)
-        holder.name.text = data[position].name
-        holder.count.text = data[position].count
-        holder.itemView.findViewById<View>(R.id.root).setOnClickListener { onClick(it, data[position].category) }
->>>>>>> 173a7ed60242d678f19f539d94d77f99f9888554
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

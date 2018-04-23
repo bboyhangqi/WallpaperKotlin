@@ -9,8 +9,7 @@ data class WallpaperItem(var url: String
                          , var name: String
                          , var dec: String
                          , var like: String
-                         , var date: String) {
-    constructor() : this("","","","",""){
+                         , var date: String) : Serializable {
+    constructor() : this("", "", "", "", "")
 
-    }
 }

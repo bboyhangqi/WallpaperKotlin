@@ -11,17 +11,10 @@ import android.view.ViewGroup
 
 import app.mumandroidproject.R
 import app.mumandroidproject.bean.WallpaperItem
-import app.mumandroidproject.constant.Constant
 import app.mumandroidproject.model.WallpaperModel
-<<<<<<< HEAD
-=======
-import app.mumandroidproject.ui.adpter.CategoryAdapter
->>>>>>> 173a7ed60242d678f19f539d94d77f99f9888554
 import app.mumandroidproject.ui.adpter.HotAdapter
-import com.bumptech.glide.load.model.Model
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.fragment_category.*
 
@@ -53,6 +46,7 @@ class HotFragment : Fragment() {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 wallpaperList.clear()
                 for (postSnapshot in dataSnapshot.getChildren()) {
+                    Log.d("debug",postSnapshot.value.toString())
                     val wallpaper = postSnapshot.getValue(WallpaperItem::class.java)
 
                     if (wallpaper != null) {
