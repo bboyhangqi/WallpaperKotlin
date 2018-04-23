@@ -15,6 +15,7 @@ import android.widget.LinearLayout
 import app.mumandroidproject.R
 import app.mumandroidproject.bean.LocalImageItem
 import app.mumandroidproject.helper.LocalHelper
+import app.mumandroidproject.helper.SharePerferenceHelper
 import app.mumandroidproject.ui.adpter.DownloadAdapter
 import kotlinx.android.synthetic.main.fragment_local.*
 
@@ -82,10 +83,9 @@ class LocalFragment : Fragment() {
     }
 
     fun updateLocalImages() {
-        val imagePaths = LocalHelper.getLocalImages()
-        val localImages = imagePaths.map { path -> LocalImageItem(path) }
-        localImages.forEach { Log.d(TAG,"path: $it") }
-        recyclerViewDownload?.adapter = DownloadAdapter(localImages, activity!!.windowManager)
+        val imagePaths = SharePerferenceHelper.getDownloadWallpapers(this.context!!)
+        imagePaths.forEach { Log.d(TAG,"path: $it") }
+        recyclerViewDownload?.adapter = DownloadAdapter(imagePaths, activity!!.windowManager)
     }
 
 

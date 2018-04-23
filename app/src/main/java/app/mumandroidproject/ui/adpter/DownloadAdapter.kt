@@ -18,7 +18,7 @@ import app.mumandroidproject.ui.dialog.PresentationDialog
 /**
  * Created by CodingHome on 4/22/18.
  */
-class DownloadAdapter(var data: List<LocalImageItem>, windowManager: WindowManager) : RecyclerView.Adapter<DownloadAdapter.ViewHolder>() {
+class DownloadAdapter(var data: Array<LocalImageItem>, windowManager: WindowManager) : RecyclerView.Adapter<DownloadAdapter.ViewHolder>() {
 
     private val TAG = "DownloadAdpter"
 

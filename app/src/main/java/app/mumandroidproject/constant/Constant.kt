@@ -43,5 +43,10 @@ class Constant {
         }
     }
 
+    object PREVIEW_TYPE{
+        val LOCAL = 1
+        val ONLINE = 2
+    }
+
 
 }
