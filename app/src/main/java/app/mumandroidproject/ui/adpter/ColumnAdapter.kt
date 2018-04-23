@@ -108,9 +108,9 @@ class ColumnAdapter(var data: List<WallpaperItem>, var categoryName: String, win
         }
 
         private fun goToPreview(wallpaperItem: WallpaperItem?) {
-            val intent = Intent(itemView.context, PreviewActivity::class.java)
-            intent.putExtra("wallpaperItem", wallpaperItem)
-            itemView.context.startActivity(intent)
+//            val intent = Intent(itemView.context, PreviewActivity::class.java)
+//            intent.putExtra("wallpaperItem", wallpaperItem)
+//            itemView.context.startActivity(intent)
         }
     }
 
