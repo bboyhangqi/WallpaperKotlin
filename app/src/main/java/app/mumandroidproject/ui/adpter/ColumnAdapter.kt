@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView
 import android.widget.LinearLayout
 import app.mumandroidproject.bean.WallpaperItem
 import android.graphics.Point
+import android.util.Log
 import android.view.*
 import android.widget.ImageView
 import android.widget.RelativeLayout
@@ -22,11 +23,11 @@ class ColumnAdapter(var data: List<WallpaperItem>, var categoryName: String, win
 
     private val TAG = "ColumnAdapter"
 
-    var screenWidth: Int = 0
-    var screenHeight: Int = 0
+    private var screenWidth: Int = 0
+    private var screenHeight: Int = 0
 
-    var headItem: WallpaperItem? = null
-    var itemList = mutableListOf<Array<WallpaperItem>>()
+    private var headItem: WallpaperItem? = null
+    private var itemList = mutableListOf<Array<WallpaperItem>>()
 
     init {
         val display = windowManager.getDefaultDisplay()
@@ -35,8 +36,17 @@ class ColumnAdapter(var data: List<WallpaperItem>, var categoryName: String, win
         screenWidth = size.x
         screenHeight = size.y
         headItem = data[0]
-        data.filterIndexed { index, wallpaperItem -> index != 0 }
-                .forEachIndexed { index, wallpaperItem -> if (index % 2 == 0) itemList.add(arrayOf(data[index], data[index + 1])) }
+
+        for ((index, value) in data.withIndex()) {
+            if (index == 0) continue
+            if (index + 1 == data.size) {
+                if (index % 2 != 0) itemList.add(arrayOf(data[index]))
+            } else {
+                if (index % 2 != 0) itemList.add(arrayOf(data[index], data[index + 1]))
+            }
+        }
+
+        Log.d(TAG, "size: ${itemList.size}")
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -45,7 +55,7 @@ class ColumnAdapter(var data: List<WallpaperItem>, var categoryName: String, win
     }
 
     override fun getItemCount(): Int {
-        return (data.size - 1) / 2
+        return itemList.size + 1
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -63,17 +73,19 @@ class ColumnAdapter(var data: List<WallpaperItem>, var categoryName: String, win
             holder.itemHead = headItem
         } else {
             holder.headLayout.visibility = View.GONE
-            holder.iv2.visibility = View.VISIBLE
             holder.iv1.visibility = View.VISIBLE
             imageWidth = screenWidth / 2
             holder.iv1.layoutParams = LinearLayout.LayoutParams(imageWidth, imageWidth)
             holder.iv1.setPadding(0, 2, 2, 2)
-            holder.iv2.layoutParams = LinearLayout.LayoutParams(imageWidth, imageWidth)
-            holder.iv2.setPadding(2, 2, 0, 2)
-            holder.iv1.loadByGlide(itemList[position][0].url)
-            holder.iv2.loadByGlide(itemList[position][1].url)
-            holder.itemForIv1 = itemList[position][0]
-            holder.itemForIv2 = itemList[position][1]
+            holder.iv1.loadByGlide(itemList[position - 1][0].url)
+            holder.itemForIv1 = itemList[position - 1][0]
+            if (itemList[position - 1].size == 2) {
+                holder.iv2.visibility = View.VISIBLE
+                holder.iv2.layoutParams = LinearLayout.LayoutParams(imageWidth, imageWidth)
+                holder.iv2.setPadding(2, 2, 0, 2)
+                holder.iv2.loadByGlide(itemList[position - 1][1].url)
+                holder.itemForIv2 = itemList[position - 1][1]
+            }
         }
 
     }
@@ -108,12 +120,18 @@ class ColumnAdapter(var data: List<WallpaperItem>, var categoryName: String, win
         }
 
         private fun goToPreview(wallpaperItem: WallpaperItem?) {
+<<<<<<< HEAD
 //            val intent = Intent(itemView.context, PreviewActivity::class.java)
 //            intent.putExtra("wallpaperItem", wallpaperItem)
 //            itemView.context.startActivity(intent)
+=======
+            val intent = Intent(itemView.context, PreviewActivity::class.java)
+            intent.putExtra("flag", "online")
+            intent.putExtra("wallpaperItem", wallpaperItem)
+            itemView.context.startActivity(intent)
+>>>>>>> 173a7ed60242d678f19f539d94d77f99f9888554
         }
     }
-
 
 
 }

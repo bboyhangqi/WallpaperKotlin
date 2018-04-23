@@ -51,7 +51,11 @@ class WallpaperModel () {
         return null
     }
 
-    fun getWallpaperByCategory(url: String): List<WallpaperItem>? {
+    fun getWallpaperByCategory(category: String): List<WallpaperItem>? {
+        return null
+    }
+
+    fun getAllWallpapers(): List<WallpaperItem>? {
         return null
     }
 

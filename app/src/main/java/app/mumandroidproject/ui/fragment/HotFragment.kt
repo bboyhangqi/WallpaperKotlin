@@ -13,6 +13,10 @@ import app.mumandroidproject.R
 import app.mumandroidproject.bean.WallpaperItem
 import app.mumandroidproject.constant.Constant
 import app.mumandroidproject.model.WallpaperModel
+<<<<<<< HEAD
+=======
+import app.mumandroidproject.ui.adpter.CategoryAdapter
+>>>>>>> 173a7ed60242d678f19f539d94d77f99f9888554
 import app.mumandroidproject.ui.adpter.HotAdapter
 import com.bumptech.glide.load.model.Model
 import com.google.firebase.database.DataSnapshot
@@ -42,6 +46,7 @@ class HotFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_hot, container, false)
     }
 
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         WallpaperModel.instance.getHotWallpaper(object : ValueEventListener{
@@ -64,6 +69,12 @@ class HotFragment : Fragment() {
                 Log.w("MainActivity", "loadItem:onCancelled", databaseError.toException())
             }
         })
+    }
+
+
+    fun getWallpaperItems(){
+        WallpaperModel.instance.getAllWallpapers()
+        //sort
     }
 
 }

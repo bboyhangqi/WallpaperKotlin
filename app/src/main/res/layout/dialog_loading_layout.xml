@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<app.mumandroidproject.ui.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <app.mumandroidproject.ui.percent.PercentRelativeLayout
+        android:id="@+id/root_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/dialog_loading_bg"
+        app:layout_heightPercent="20%"
+        app:layout_marginTopPercent="40%"
+        app:layout_widthPercent="51%">
+
+        <!--<ProgressBar
+            android:id="@+id/pb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_marginTopPercent="20%"
+            app:layout_heightPercent="33%"
+            app:layout_widthPercent="25%"
+            android:indeterminateDrawable="@drawable/dialog_progressbar"
+            android:layout_centerHorizontal="true"/>-->
+
+        <ImageView
+            android:id="@+id/pb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:src="@anim/loading_frame"
+            app:layout_heightPercent="33%"
+            app:layout_marginTopPercent="20%"
+            app:layout_widthPercent="25%" />
+
+        <ImageView
+            android:id="@+id/iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            app:layout_heightPercent="33%"
+            app:layout_marginTopPercent="20%"
+            app:layout_widthPercent="25%" />
+
+        <TextView
+            android:id="@+id/tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="@string/loading_wallpaper"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/dialog_loading_textsize"
+            app:layout_marginTopPercent="62%" />
+
+
+    </app.mumandroidproject.ui.percent.PercentRelativeLayout>
+
+
+</app.mumandroidproject.ui.percent.PercentRelativeLayout>

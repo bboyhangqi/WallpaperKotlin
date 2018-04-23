@@ -10,20 +10,20 @@ class Constant {
 
     object CATEGORY {
         val categoryList = mutableListOf<WallpaperCategory>()
-        val REQUEST_ID_QUALITY = 1
-        val REQUEST_ID_SCENERY = 2
-        val REQUEST_ID_BELLE = 3
-        val REQUEST_ID_WORD = 4
-        val REQUEST_ID_LOVE = 5
-        val REQUEST_ID_COMIC = 6
-        val REQUEST_ID_EMOTION = 7
-        val REQUEST_ID_STAR = 8
-        val REQUEST_ID_PET = 9
-        val REQUEST_ID_FASHION = 10
-        val REQUEST_ID_GAME = 11
-        val REQUEST_ID_SPORT = 12
-        val REQUEST_ID_CAR = 13
-        val REQUEST_ID_MILITARY = 14
+        val REQUEST_ID_QUALITY = "quality"
+        val REQUEST_ID_SCENERY = "scenery"
+        val REQUEST_ID_BELLE = "belle"
+        val REQUEST_ID_WORD = "word"
+        val REQUEST_ID_LOVE = "love"
+        val REQUEST_ID_COMIC = "comic"
+        val REQUEST_ID_EMOTION = "emotion"
+        val REQUEST_ID_STAR = "star"
+        val REQUEST_ID_PET = "pet"
+        val REQUEST_ID_FASHION = "fashion"
+        val REQUEST_ID_GAME = "game"
+        val REQUEST_ID_SPORT = "sport"
+        val REQUEST_ID_CAR = "car"
+        val REQUEST_ID_MILITARY = "military"
 
         init {
             categoryList.add(WallpaperCategory(R.drawable.cid_jueban, REQUEST_ID_QUALITY, "QUALITY", "", "100"))
