@@ -20,7 +20,7 @@ class CategoryPresenter(var columnView: ColumnView) {
         data.add(WallpaperItem("https://img00.deviantart.net/1dd4/i/2017/157/7/6/the_deer_by_kryseis_art-dbbuawk.jpg", "the_deer_by_kryseis_art-dbbuawk", "", "", ""))
         data.add(WallpaperItem("http://www.eyehearttravel.com/wp-content/uploads/2012/05/39547302947455316_MHlccWEz_f.jpg", "39547302947455316_MHlccWEz_f", "", "", ""))
         data.add(WallpaperItem("http://www.backgroundimageshd.com/wp-content/uploads/2017/12/landscape-wallpaper-free-computer-hd37-.jpg", "landscape-wallpaper-free-computer-hd37", "", "", ""))
-        data.add(WallpaperItem("http://www.backgroundimageshd.com/wp-content/uploads/2017/12/my-wallpaper40-.jpg", "my-wallpaper40-.jpg", "", "", ""))
+        data.add(WallpaperItem("http://www.backgroundimageshd.com/wp-content/uploads/2017/12/my-wallpaper40-.jpg", "my-wallpaper40", "", "", ""))
         data.add(WallpaperItem("http://www.backgroundimageshd.com/wp-content/uploads/2017/12/Mountains-1920x1080-Wallpapers38-.jpg", "Mountains-1920x1080-Wallpapers38", "", "", ""))
         data.add(WallpaperItem("http://www.backgroundimageshd.com/wp-content/uploads/2017/12/Interesting-Star-Wars-1920x108036-.jpg", "Interesting-Star-Wars-1920x108036", "", "", ""))
 

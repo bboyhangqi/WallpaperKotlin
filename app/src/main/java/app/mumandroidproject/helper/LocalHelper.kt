@@ -12,6 +12,7 @@ import android.content.ContentUris
 import android.graphics.Matrix
 import android.net.Uri
 import android.util.Log
+import app.mumandroidproject.bean.LocalImageItem
 import app.mumandroidproject.bean.WallpaperItem
 import java.io.FileNotFoundException
 import java.text.SimpleDateFormat
@@ -31,9 +32,10 @@ class LocalHelper private constructor() {
         fun storeToAlternateSd(bmp: Bitmap?, title: String): String {
             if (bmp == null) return ""
             val sdCardDirectory = File(LOCAL_FILE_DIR)
-            if (!sdCardDirectory.exists())
-                sdCardDirectory.mkdir()
+            Log.d(TAG, "sdCardDirectory exists ${sdCardDirectory.exists()}")
+            if (!sdCardDirectory.exists()) sdCardDirectory.mkdir()
 
+            Log.d(TAG, "image ${title}")
             val image = File(sdCardDirectory, "$title.jpg")
             val imageOut = FileOutputStream(image)
             try {
@@ -46,7 +48,12 @@ class LocalHelper private constructor() {
                 imageOut.close()
             }
             return image.absolutePath
-
         }
+
+        fun deleteLocalImage(path:String?){
+            val file = File(path)
+            if(file.exists()) file.delete()
+        }
+
     }
 }

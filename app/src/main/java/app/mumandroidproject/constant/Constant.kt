@@ -48,5 +48,10 @@ class Constant {
         val ONLINE = 2
     }
 
+    object BROADCAST_ACTION{
+        val ACTION_IMAGE_DOWNLOADED = "com.mum.wallpaper.action.ACTION_IMAGE_DOWNLOADED"
+        val ACTION_IMAGE_COLLECTED = "com.mum.wallpaper.action.ACTION_IMAGE_COLLECTED"
+    }
+
 
 }

@@ -1,5 +1,6 @@
 package app.mumandroidproject.ui.activity
 
+import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Build
 import android.support.v7.app.AppCompatActivity
@@ -73,6 +74,7 @@ class PreviewActivity : AppCompatActivity(), RequestListener<Bitmap> {
         }
         var path = LocalHelper.storeToAlternateSd(bitmap, wallpaperItem!!.name)
         SharePerferenceHelper.addDownloadWallpaper(this, LocalImageItem(path))
+        sendBroadcast(Intent(Constant.BROADCAST_ACTION.ACTION_IMAGE_DOWNLOADED))
         NotificationHelper.sendMsg(this, "Notice", "wallpaper download success", R.drawable.ok)
     }
 
@@ -87,6 +89,7 @@ class PreviewActivity : AppCompatActivity(), RequestListener<Bitmap> {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     LocalHelper.storeToAlternateSd(bitmap, wallpaperItem!!.name)
+                    sendBroadcast(Intent(Constant.BROADCAST_ACTION.ACTION_IMAGE_DOWNLOADED))
                     NotificationHelper.sendMsg(this, "Notice", "set wallpaper success", R.drawable.rotatebigbk)
                     Toast.makeText(this, "set wallpaper success", Toast.LENGTH_SHORT).show()
                 })
@@ -95,6 +98,8 @@ class PreviewActivity : AppCompatActivity(), RequestListener<Bitmap> {
 
     fun collect(view: View) {
         SharePerferenceHelper.addCollectWallpaper(this, wallpaperItem!!)
+        sendBroadcast(Intent(Constant.BROADCAST_ACTION.ACTION_IMAGE_COLLECTED))
+        Toast.makeText(this, "Collected", Toast.LENGTH_SHORT).show()
     }
 
     override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Bitmap>?, isFirstResource: Boolean): Boolean {

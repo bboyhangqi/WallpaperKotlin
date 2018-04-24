@@ -1,9 +1,6 @@
 package app.mumandroidproject.helper
 
-import android.annotation.SuppressLint
 import android.content.Context
-import android.content.SharedPreferences
-import android.util.Log
 import app.mumandroidproject.bean.LocalImageItem
 import app.mumandroidproject.bean.WallpaperItem
 import com.google.gson.Gson
@@ -17,35 +14,46 @@ class SharePerferenceHelper private constructor() {
 
         fun addDownloadWallpaper(context: Context, item: LocalImageItem) {
             val array = getDownloadWallpapers(context)
-            array.plus(item)
-            storeDownloadWallpapers(context, array)
+            val list = array.toMutableList()
+            list.add(item)
+            storeDownloadWallpapers(context, list)
         }
 
-      
-        fun storeDownloadWallpapers(context: Context, list: Array<LocalImageItem>) {
+
+        private fun storeDownloadWallpapers(context: Context, list: List<LocalImageItem>) {
             val sp = context.getSharedPreferences("download", Context.MODE_PRIVATE)
             val editor = sp.edit()
             val gsonStr = Gson().toJson(list)
-            Log.d("debug", "storeDownloadWallpapers $gsonStr")
             editor.putString("local_images", gsonStr)
             editor.apply()
         }
 
         fun getDownloadWallpapers(context: Context): Array<LocalImageItem> {
-            val sp = context.getSharedPreferences("download", Context.MODE_PRIVATE)
-            val gsonStr = sp.getString("local_images", null) ?: return emptyArray()
-            Log.d("debug", "getDownloadWallpapers $gsonStr")
+            val sp = context?.getSharedPreferences("download", Context.MODE_PRIVATE)
+            val gsonStr = sp?.getString("local_images", null) ?: return emptyArray()
             return Gson().fromJson(gsonStr, Array<LocalImageItem>::class.java)
         }
 
-        fun addCollectWallpaper(context: Context, item: WallpaperItem) {
-            val array = getCollectWallpapers(context)
-            array.plus(item)
-            storeCollectWallpapers(context, array)
+
+        fun deleteDownloadWallpaper(context: Context, item: LocalImageItem?) {
+            val arrays = getDownloadWallpapers(context)
+            val list = arrays.toMutableList()
+            if (list.contains(item)) {
+                list.remove(item)
+            }
+            storeDownloadWallpapers(context, list)
         }
 
-        
-        fun storeCollectWallpapers(context: Context, list: Array<WallpaperItem>) {
+
+        fun addCollectWallpaper(context: Context, item: WallpaperItem) {
+            val array = getCollectWallpapers(context)
+            val list = array.toMutableList()
+            list.add(item)
+            storeCollectWallpapers(context, list)
+        }
+
+
+        private fun storeCollectWallpapers(context: Context, list: List<WallpaperItem>) {
             val sp = context.getSharedPreferences("collect", Context.MODE_PRIVATE)
             val editor = sp.edit()
             editor.putString("collected_images", Gson().toJson(list))
@@ -53,9 +61,18 @@ class SharePerferenceHelper private constructor() {
         }
 
         fun getCollectWallpapers(context: Context): Array<WallpaperItem> {
-            val sp = context.getSharedPreferences("collect", Context.MODE_PRIVATE)
-            val gsonStr = sp.getString("collected_images", null)
+            val sp = context?.getSharedPreferences("collect", Context.MODE_PRIVATE)
+            val gsonStr = sp?.getString("collected_images", null) ?: return emptyArray()
             return Gson().fromJson(gsonStr, Array<WallpaperItem>::class.java)
+        }
+
+        fun deleteCollectWallpaper(context: Context, wallpaperItem: WallpaperItem?) {
+            val arrays = getCollectWallpapers(context)
+            val list = arrays.toMutableList()
+            if (list.contains(wallpaperItem)) {
+                list.remove(wallpaperItem)
+            }
+            storeCollectWallpapers(context, list)
         }
     }
 

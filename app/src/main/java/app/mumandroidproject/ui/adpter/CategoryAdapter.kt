@@ -24,7 +24,7 @@ class CategoryAdapter(var data: List<WallpaperCategory>) : RecyclerView.Adapter<
         holder.imageView.setImageResource(data[position].rId)
         holder.name.text = data[position].name
         holder.count.text = data[position].count
-        holder.itemView.findViewById<View>(R.id.root).setOnClickListener { onClick(it, data[position].category) }
+        holder.itemView.findViewById<View>(R.id.root).setOnClickListener { onClick(it, data[position].category.toUpperCase()) }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

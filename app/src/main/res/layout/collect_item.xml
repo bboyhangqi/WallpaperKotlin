@@ -11,7 +11,6 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center">
-
         <app.mumandroidproject.ui.custom.LocalImageView
             android:id="@+id/iv1"
             android:layout_width="wrap_content"
@@ -25,13 +24,11 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center">
-
         <app.mumandroidproject.ui.custom.LocalImageView
             android:id="@+id/iv2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:scaleType="centerCrop" />
-
     </RelativeLayout>
 
 

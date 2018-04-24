@@ -2,6 +2,10 @@ package app.mumandroidproject.ui.fragment
 
 
 import android.annotation.SuppressLint
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
@@ -14,18 +18,41 @@ import android.widget.LinearLayout
 
 import app.mumandroidproject.R
 import app.mumandroidproject.bean.LocalImageItem
+import app.mumandroidproject.constant.Constant
 import app.mumandroidproject.helper.LocalHelper
 import app.mumandroidproject.helper.SharePerferenceHelper
+import app.mumandroidproject.presenter.LocalPresenter
+import app.mumandroidproject.ui.adpter.CollectAdapter
 import app.mumandroidproject.ui.adpter.DownloadAdapter
+import app.mumandroidproject.view.LocalView
 import kotlinx.android.synthetic.main.fragment_local.*
 
 
 /**
  * A simple [Fragment] subclass.
  */
-class LocalFragment : Fragment() {
+class LocalFragment : Fragment(), LocalView {
 
     private val TAG = "LocalFragment"
+    private val localPresenter by lazy { LocalPresenter(this) }
+
+    private var downPage: LinearLayout? = null
+    private var collectPage: LinearLayout? = null
+    private var recyclerViewDownload: RecyclerView? = null
+    private var recyclerViewCollected: RecyclerView? = null
+
+
+    private val intentFilter = IntentFilter()
+    private var broadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            if (intent?.action == Constant.BROADCAST_ACTION.ACTION_IMAGE_DOWNLOADED) {
+                updateDownLoadedImages()
+            } else if (intent?.action == Constant.BROADCAST_ACTION.ACTION_IMAGE_COLLECTED) {
+                updateCollectImages()
+            }
+        }
+    }
+
 
     object HOLDER {
         val INSTANCE by lazy { LocalFragment() }
@@ -34,11 +61,6 @@ class LocalFragment : Fragment() {
     companion object {
         val instance = HOLDER.INSTANCE
     }
-
-    private var downPage: LinearLayout? = null
-    private var collectPage: LinearLayout? = null
-    private var recyclerViewDownload: RecyclerView? = null
-    private var recyclerViewCollected: RecyclerView? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_local, container, false)
@@ -57,9 +79,18 @@ class LocalFragment : Fragment() {
             showCollectedPage()
         }
         showDownloadedPage()
+        intentFilter.addAction(Constant.BROADCAST_ACTION.ACTION_IMAGE_DOWNLOADED)
+        intentFilter.addAction(Constant.BROADCAST_ACTION.ACTION_IMAGE_COLLECTED)
+        activity?.registerReceiver(broadcastReceiver, intentFilter)
     }
 
-    fun showDownloadedPage() {
+    override fun onDestroy() {
+        super.onDestroy()
+        activity?.unregisterReceiver(broadcastReceiver)
+    }
+
+
+    private fun showDownloadedPage() {
         if (content_layout.findViewById<LinearLayout>(R.id.download_layout) == null) {
             downPage = LayoutInflater.from(this.context).inflate(R.layout.download_page, content_layout, false) as LinearLayout
             recyclerViewDownload = downPage?.findViewById(R.id.rc_download)
@@ -68,10 +99,10 @@ class LocalFragment : Fragment() {
         }
         downPage?.visibility = View.VISIBLE
         collectPage?.visibility = View.GONE
-        updateLocalImages()
+        updateDownLoadedImages()
     }
 
-    fun showCollectedPage() {
+    private fun showCollectedPage() {
         if (content_layout.findViewById<LinearLayout>(R.id.collected_layout) == null) {
             collectPage = LayoutInflater.from(this.context).inflate(R.layout.collected_page, content_layout, false) as LinearLayout
             recyclerViewCollected = collectPage?.findViewById(R.id.rc_collect)
@@ -80,12 +111,28 @@ class LocalFragment : Fragment() {
         }
         downPage?.visibility = View.GONE
         collectPage?.visibility = View.VISIBLE
+        updateCollectImages()
     }
 
-    fun updateLocalImages() {
+    private fun updateDownLoadedImages() {
         val imagePaths = SharePerferenceHelper.getDownloadWallpapers(this.context!!)
-        imagePaths.forEach { Log.d(TAG,"path: $it") }
-        recyclerViewDownload?.adapter = DownloadAdapter(imagePaths, activity!!.windowManager)
+        imagePaths.forEach { Log.d(TAG, "updateDownLoadedImages path: $it") }
+        recyclerViewDownload?.adapter = DownloadAdapter(imagePaths, activity!!.windowManager, localPresenter)
+    }
+
+    private fun updateCollectImages() {
+        val imagePaths = SharePerferenceHelper.getCollectWallpapers(this.context!!)
+        imagePaths.forEach { Log.d(TAG, "path: $it") }
+        recyclerViewCollected?.adapter = CollectAdapter(imagePaths, activity!!.windowManager, localPresenter)
+    }
+
+
+    override fun onDownloadImageDeleted() {
+        updateDownLoadedImages()
+    }
+
+    override fun onCollectedItemDeleted() {
+        updateCollectImages()
     }
 
 

@@ -26,6 +26,13 @@ fun ImageView.loadByGlide(url: String?) {
             .into(this)
 }
 
+fun ImageView.loadByGlideWithoutAnimation(url: String?) {
+    Glide.with(this.context)
+            .asBitmap()
+            .load(url)
+            .into(this)
+}
+
 fun ImageView.loadByGlide(url: String?, requestListener: RequestListener<Bitmap>) {
     Glide.with(this.context)
             .asBitmap()
