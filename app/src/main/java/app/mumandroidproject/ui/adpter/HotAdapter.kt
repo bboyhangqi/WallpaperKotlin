@@ -29,7 +29,7 @@ class HotAdapter(var data: MutableList<WallpaperItem>) : RecyclerView.Adapter<Ho
         holder.monthYear.text = data[position].date.substring(3, 10)
         holder.description.text = data[position].desc
         holder.like.text = data[position].like.toString()
-//        holder.itemView.findViewById<View>(R.id.root).setOnClickListener { onClick(it, data[position].requestId, data[position].name) }
+//        holder.itemView.findViewById<View>(R.id.root).setOnClickListener { onClick(it, data[position].category, data[position].name) }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
