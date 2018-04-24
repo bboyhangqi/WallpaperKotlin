@@ -7,9 +7,9 @@ import java.io.Serializable
  */
 data class WallpaperItem(var url: String
                          , var name: String
-                         , var dec: String
-                         , var like: String
+                         , var desc: String
+                         , var like: Int
                          , var date: String) : Serializable {
-    constructor() : this("", "", "", "", "")
+    constructor() : this("", "", "", 0, "")
 
 }
