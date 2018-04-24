@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="150dp"
+    android:layout_height="250dp"
     android:id="@+id/root"
     android:clickable="true">
 
@@ -9,37 +9,61 @@
         android:id="@+id/iv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="centerCrop"/>
+        android:scaleType="centerCrop" />
 
     <TextView
         android:id="@+id/date"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:text="Comic"
-        android:textSize="20sp"
-        android:textColor="@android:color/white"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="25dp"
-        android:layout_marginTop="80dp"/>
+        android:layout_marginTop="210dp"
+        android:fontFamily="sans-serif-thin"
+        android:text="Comic"
+        android:textColor="@android:color/white"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/monthYear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/date"
+        android:fontFamily="sans-serif-thin"
+        android:text="07-2018"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        android:layout_marginTop="200dp"
+        android:layout_marginLeft="10dp"/>
 
     <TextView
         android:id="@+id/description"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/monthYear"
+        android:layout_toEndOf="@+id/date"
+        android:fontFamily="sans-serif-thin"
         android:text="1163Pic"
-        android:textSize="15sp"
         android:textColor="@android:color/white"
-        android:layout_marginLeft="25dp"
-        android:layout_marginTop="110dp"/>
+        android:textSize="16sp"
+        android:layout_marginLeft="10dp"/>
+
+    <ImageView
+        android:id="@+id/heart"
+        android:layout_width="38dp"
+        android:layout_height="42dp"
+        android:layout_alignBottom="@+id/description"
+        android:layout_toStartOf="@+id/like"
+        android:src="@drawable/collect_normal" />
 
     <TextView
         android:id="@+id/like"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/date"
+        android:layout_marginEnd="16dp"
         android:text="1163Pic"
-        android:textSize="15sp"
         android:textColor="@android:color/white"
-        android:layout_marginLeft="25dp"
-        android:layout_marginTop="110dp"/>
+        android:textSize="15sp" />
 
 
 </RelativeLayout>

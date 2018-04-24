@@ -17,6 +17,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.fragment_category.*
+import java.util.*
 
 
 /**
@@ -39,23 +40,21 @@ class HotFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_hot, container, false)
     }
 
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         WallpaperModel.instance.getHotWallpaper(object : ValueEventListener{
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 wallpaperList.clear()
                 for (postSnapshot in dataSnapshot.getChildren()) {
-                    Log.d("debug",postSnapshot.value.toString())
                     val wallpaper = postSnapshot.getValue(WallpaperItem::class.java)
-
                     if (wallpaper != null) {
                         wallpaperList.add(wallpaper)
                     }
-                    val hotAdapter = HotAdapter(wallpaperList)
-                    rv.layoutManager = LinearLayoutManager(HotFragment.instance.context)
-                    rv.adapter = hotAdapter
                 }
+                Collections.reverse(wallpaperList)
+                val hotAdapter = HotAdapter(wallpaperList)
+                rv.layoutManager = LinearLayoutManager(HotFragment.instance.context)
+                rv.adapter = hotAdapter
             }
 
             override fun onCancelled(databaseError: DatabaseError) {

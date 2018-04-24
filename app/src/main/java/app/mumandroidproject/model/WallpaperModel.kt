@@ -16,28 +16,6 @@ class WallpaperModel () {
     lateinit var ref : DatabaseReference
     lateinit var wallpaperList: MutableList<WallpaperItem>
 
-//    init {
-//        wallpaperList = mutableListOf()
-//        ref = FirebaseDatabase.getInstance().getReference("pictures")
-//        ref.addValueEventListener(object: ValueEventListener {
-//            override fun onDataChange(dataSnapshot: DataSnapshot) {
-//                wallpaperList.clear()
-//                for (postSnapshot in dataSnapshot.getChildren()) {
-//                    val wallpaper = postSnapshot.getValue(WallpaperItem::class.java)
-//
-//                    if (wallpaper != null) {
-//                        wallpaperList.add(wallpaper)
-//                    }
-//                }
-//            }
-//
-//            override fun onCancelled(databaseError: DatabaseError) {
-//                // Getting Item failed, log a message
-//                Log.w("MainActivity", "loadItem:onCancelled", databaseError.toException())
-//            }
-//        })
-//    }
-
     object HOLDER {
         val INSTANCE by lazy { WallpaperModel() }
     }
@@ -61,7 +39,7 @@ class WallpaperModel () {
 
     fun getHotWallpaper(listen:ValueEventListener){
         ref = FirebaseDatabase.getInstance().getReference("pictures")
-        ref.addValueEventListener(listen)
+        ref.orderByChild("like").limitToLast(20).addValueEventListener(listen)
     }
 
 }

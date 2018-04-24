@@ -12,6 +12,7 @@ import app.mumandroidproject.R
 import app.mumandroidproject.bean.WallpaperItem
 import app.mumandroidproject.extension.loadByGlide
 import app.mumandroidproject.ui.activity.ColumnActivity
+import java.util.*
 
 /**
  * Created by CodingHome on 4/16/18.
@@ -23,11 +24,11 @@ class HotAdapter(var data: MutableList<WallpaperItem>) : RecyclerView.Adapter<Ho
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        Log.d("Nhan123", data.toString())
         holder.imageView.loadByGlide(data[position].url)
-        holder.date.text = data[position].date
-        holder.description.text = data[position].dec
-        holder.like.text = data[position].like
+        holder.date.text = this.convertDate(data[position].date.substring(0,2))
+        holder.monthYear.text = data[position].date.substring(3, 10)
+        holder.description.text = data[position].desc
+        holder.like.text = data[position].like.toString()
 //        holder.itemView.findViewById<View>(R.id.root).setOnClickListener { onClick(it, data[position].requestId, data[position].name) }
     }
 
@@ -45,7 +46,51 @@ class HotAdapter(var data: MutableList<WallpaperItem>) : RecyclerView.Adapter<Ho
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var imageView = itemView.findViewById<ImageView>(R.id.iv)
         var date = itemView.findViewById<TextView>(R.id.date)
+        var monthYear = itemView.findViewById<TextView>(R.id.monthYear)
         var description = itemView.findViewById<TextView>(R.id.description)
         var like = itemView.findViewById<TextView>(R.id.like)
+    }
+
+    fun convertDate(dateInput : String) : String {
+        when(dateInput.toInt()) {
+            1 -> {
+                return "January"
+            }
+            2 -> {
+                return "February"
+            }
+            3 -> {
+                return "March"
+            }
+            4 -> {
+                return "April"
+            }
+            5 -> {
+                return "May"
+            }
+            6 -> {
+                return "June"
+            }
+            7 -> {
+                return "July"
+            }
+            8 -> {
+                return "August"
+            }
+            9 -> {
+                return "September"
+            }
+            10 -> {
+                return "October"
+            }
+            11 -> {
+                return "November"
+            }
+            12 -> {
+                return "December"
+            }
+        }
+
+        return "January"
     }
 }
