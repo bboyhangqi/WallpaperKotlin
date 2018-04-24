@@ -12,9 +12,6 @@ import android.widget.RelativeLayout
 class WallpaperNavigationBar(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
 
 
-
-
-
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
     }

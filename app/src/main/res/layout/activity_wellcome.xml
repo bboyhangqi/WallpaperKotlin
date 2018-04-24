@@ -4,6 +4,37 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="app.mumandroidproject.ui.fragment.WellcomeActivity">
+    tools:context="app.mumandroidproject.ui.activity.WellcomeActivity">
+
+    <ImageView
+        android:id="@+id/iv_splash"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/splash"
+        android:visibility="invisible" />
+
+    <RelativeLayout
+        android:id="@+id/rl_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/iv_splash"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintStart_toStartOf="@+id/iv_splash"
+        android:layout_marginStart="8dp"
+        app:layout_constraintVertical_bias="0.291">
+
+        <ImageView
+            android:id="@+id/iv_logo"
+            android:layout_width="180dp"
+            android:layout_height="180dp"
+            android:background="@drawable/aboutlogo" />
+
+    </RelativeLayout>
+
 
 </android.support.constraint.ConstraintLayout>
