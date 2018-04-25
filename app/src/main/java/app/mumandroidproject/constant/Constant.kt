@@ -59,5 +59,12 @@ class Constant {
         val PAGE_LOCAL = 3
     }
 
+    object PREVIEW_PAGE_STATE{
+        val STATE_IDAL = 1
+        val STATE_DOWNLOADING = 2
+        val STATE_SETTING = 3
+        val STATE_COLLECTING = 4
+    }
+
 
 }

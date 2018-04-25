@@ -2,11 +2,9 @@ package app.mumandroidproject.ui.activity
 
 import android.content.Intent
 import android.graphics.Bitmap
-import android.os.Build
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
-import android.support.annotation.RequiresApi
 import android.util.Log
 import android.view.View
 import app.mumandroidproject.R
@@ -17,29 +15,25 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import kotlinx.android.synthetic.main.activity_preview.*
 import android.widget.Toast
-import app.mumandroidproject.bean.LocalImageItem
 import app.mumandroidproject.bean.WallpaperItem
 import app.mumandroidproject.constant.Constant
 import app.mumandroidproject.extension.loadByGlideFromLocal
-import app.mumandroidproject.helper.LocalHelper
 import app.mumandroidproject.helper.NotificationHelper
-import app.mumandroidproject.helper.SharePerferenceHelper
-import app.mumandroidproject.helper.WallpaperHelper
+import app.mumandroidproject.presenter.PreviewPresenter
+import app.mumandroidproject.view.PreviewView
 import com.nineoldandroids.animation.AnimatorSet
 import com.nineoldandroids.animation.ObjectAnimator
-import io.reactivex.Observable
-import io.reactivex.ObservableOnSubscribe
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 
 
-class PreviewActivity : AppCompatActivity(), RequestListener<Bitmap> {
+class PreviewActivity : AppCompatActivity(), RequestListener<Bitmap>, PreviewView {
 
     private val TAG = "PreviewActivity"
     private var bitmap: Bitmap? = null
     private var wallpaperItem: WallpaperItem? = null
-
     private var previewType = Constant.PREVIEW_TYPE.ONLINE
+    private var previewIsShown = false
+    private var previewPresenter = PreviewPresenter(this)
+    private var state = Constant.PREVIEW_PAGE_STATE.STATE_IDAL
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,22 +61,6 @@ class PreviewActivity : AppCompatActivity(), RequestListener<Bitmap> {
     }
 
 
-    fun back(view: View) {
-        finish()
-    }
-
-    fun downLoad(view: View) {
-        if (bitmap == null || bitmap!!.isRecycled) {
-            Toast.makeText(this, "fail to download wallpaper", Toast.LENGTH_SHORT).show()
-        }
-        var path = LocalHelper.storeToAlternateSd(bitmap, wallpaperItem!!.name)
-        SharePerferenceHelper.addDownloadWallpaper(this, LocalImageItem(path))
-        sendBroadcast(Intent(Constant.BROADCAST_ACTION.ACTION_IMAGE_DOWNLOADED))
-        NotificationHelper.sendMsg(this, "Notice", "wallpaper download success", R.drawable.ok)
-    }
-
-    private var previewIsShown = false
-
     fun showPreview(view: View) {
         if (!previewIsShown) {
             iv_preview.visibility = View.VISIBLE
@@ -103,33 +81,71 @@ class PreviewActivity : AppCompatActivity(), RequestListener<Bitmap> {
             Handler().postDelayed({
                 iv_preview.visibility = View.INVISIBLE
                 previewIsShown = false
-            },200)
+            }, 200)
         }
 
     }
 
-
-    fun setWallpaper(view: View) {
-        if (bitmap == null) {
-            Toast.makeText(this, "fail to set wallpaper", Toast.LENGTH_SHORT).show()
-            return
-        }
-        Observable.create(ObservableOnSubscribe<Unit> { e -> e.onNext(WallpaperHelper.setWallpaper(bitmap, this)) })
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-                    LocalHelper.storeToAlternateSd(bitmap, wallpaperItem!!.name)
-                    sendBroadcast(Intent(Constant.BROADCAST_ACTION.ACTION_IMAGE_DOWNLOADED))
-                    NotificationHelper.sendMsg(this, "Notice", "set wallpaper success", R.drawable.rotatebigbk)
-                    Toast.makeText(this, "set wallpaper success", Toast.LENGTH_SHORT).show()
-                })
+    override fun onWallpaperSet() {
+        sendBroadcast(Intent(Constant.BROADCAST_ACTION.ACTION_IMAGE_DOWNLOADED))
+        NotificationHelper.sendMsg(this, "Notice", "set wallpaper success", R.drawable.rotatebigbk)
+        Toast.makeText(this, "set wallpaper success", Toast.LENGTH_SHORT).show()
+        previewPresenter.downloadWallpaper(bitmap, wallpaperItem!!.name, this)
+        state = Constant.PREVIEW_PAGE_STATE.STATE_IDAL
     }
 
+    override fun onWallpaperSetFromLocal() {
+        sendBroadcast(Intent(Constant.BROADCAST_ACTION.ACTION_IMAGE_DOWNLOADED))
+        NotificationHelper.sendMsg(this, "Notice", "set wallpaper success", R.drawable.rotatebigbk)
+        Toast.makeText(this, "set wallpaper success", Toast.LENGTH_SHORT).show()
+        state = Constant.PREVIEW_PAGE_STATE.STATE_IDAL
+    }
 
-    fun collect(view: View) {
-        SharePerferenceHelper.addCollectWallpaper(this, wallpaperItem!!)
+    override fun onWallpaperDownloaded() {
+        sendBroadcast(Intent(Constant.BROADCAST_ACTION.ACTION_IMAGE_DOWNLOADED))
+        NotificationHelper.sendMsg(this, "Notice", "wallpaper download success", R.drawable.ok)
+        state = Constant.PREVIEW_PAGE_STATE.STATE_IDAL
+    }
+
+    override fun onWallpaperCollected() {
         sendBroadcast(Intent(Constant.BROADCAST_ACTION.ACTION_IMAGE_COLLECTED))
         Toast.makeText(this, "Collected", Toast.LENGTH_SHORT).show()
+        state = Constant.PREVIEW_PAGE_STATE.STATE_IDAL
+    }
+
+    fun downLoad(view: View) {
+        if (bitmap == null || bitmap!!.isRecycled) {
+            Toast.makeText(this, "fail to download wallpaper", Toast.LENGTH_SHORT).show()
+            return
+        }
+        if(state == Constant.PREVIEW_PAGE_STATE.STATE_DOWNLOADING){
+            Toast.makeText(this, "wallpaper is downloading", Toast.LENGTH_SHORT).show()
+            return
+        }
+        state = Constant.PREVIEW_PAGE_STATE.STATE_DOWNLOADING
+        previewPresenter.downloadWallpaper(bitmap!!, wallpaperItem!!.name, this)
+    }
+
+    fun setWallpaper(view: View) {
+        Log.d(TAG,"zhq.debug setWallpaper previewType: $previewType")
+        if(state == Constant.PREVIEW_PAGE_STATE.STATE_SETTING){
+            Toast.makeText(this, "wallpaper is setting", Toast.LENGTH_SHORT).show()
+            return
+        }
+        state = Constant.PREVIEW_PAGE_STATE.STATE_SETTING
+        when (previewType) {
+            Constant.PREVIEW_TYPE.LOCAL -> previewPresenter.setWallpaperFromLocal(intent.getStringExtra("path"), this)
+            Constant.PREVIEW_TYPE.ONLINE -> previewPresenter.setWallpaper(bitmap, this)
+        }
+    }
+
+    fun collect(view: View) {
+        if(state == Constant.PREVIEW_PAGE_STATE.STATE_COLLECTING){
+            Toast.makeText(this, "wallpaper is collecting", Toast.LENGTH_SHORT).show()
+            return
+        }
+        state = Constant.PREVIEW_PAGE_STATE.STATE_COLLECTING
+        previewPresenter.collectWallpaper(wallpaperItem, this)
     }
 
     override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Bitmap>?, isFirstResource: Boolean): Boolean {
@@ -141,5 +157,9 @@ class PreviewActivity : AppCompatActivity(), RequestListener<Bitmap> {
         Log.d(TAG, "onResourceReady")
         bitmap = resource
         return false
+    }
+
+    fun back(view: View) {
+        finish()
     }
 }

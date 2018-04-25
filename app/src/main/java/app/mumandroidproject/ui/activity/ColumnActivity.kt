@@ -24,6 +24,7 @@ class ColumnActivity : AppCompatActivity(), ColumnView {
     }
 
     override fun setWallpapers(wallpapers: List<WallpaperItem>) {
+        if(wallpapers.isEmpty()) return
         val columnAdapter = ColumnAdapter(wallpapers, category, windowManager)
         rv.adapter = columnAdapter
     }

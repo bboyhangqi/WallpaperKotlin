@@ -16,6 +16,9 @@ class SharePerferenceHelper private constructor() {
         fun addDownloadWallpaper(context: Context, item: LocalImageItem) {
             val array = getDownloadWallpapers(context)
             val list = array.toMutableList()
+            if (list.contains(item)) {
+                return
+            }
             list.add(item)
             storeDownloadWallpapers(context, list)
         }
@@ -49,6 +52,9 @@ class SharePerferenceHelper private constructor() {
         fun addCollectWallpaper(context: Context, item: WallpaperItem) {
             val array = getCollectWallpapers(context)
             val list = array.toMutableList()
+            if (list.contains(item)) {
+                return
+            }
             list.add(item)
             storeCollectWallpapers(context, list)
         }
