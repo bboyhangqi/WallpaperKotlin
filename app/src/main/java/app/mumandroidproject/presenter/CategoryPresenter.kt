@@ -2,10 +2,16 @@ package app.mumandroidproject.presenter
 
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
+import app.mumandroidproject.R
+import app.mumandroidproject.bean.WallpaperCategory
 import app.mumandroidproject.bean.WallpaperItem
+import app.mumandroidproject.constant.Constant
 import app.mumandroidproject.model.WallpaperModel
+import app.mumandroidproject.ui.adpter.CategoryAdapter
 import app.mumandroidproject.ui.adpter.HotAdapter
+import app.mumandroidproject.ui.fragment.CategoryFragment
 import app.mumandroidproject.ui.fragment.HotFragment
+import app.mumandroidproject.view.CategoryView
 import app.mumandroidproject.view.ColumnView
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -16,38 +22,32 @@ import java.util.*
 /**
  * Created by CodingHome on 4/18/18.
  */
-class CategoryPresenter(var columnView: ColumnView) {
+class CategoryPresenter(var categoryView: CategoryView) {
 
-    fun getImagesByCategory(category: String) {
-        //WallpaperModel.instance.getWallpaperByCategory(category)
-        val data = mutableListOf<WallpaperItem>()
-//        data.add(WallpaperItem("https://images4.alphacoders.com/876/876898.jpg", "", "876898", 0, "", ""))
-//        data.add(WallpaperItem("http://www.wallfizz.com/nature/nuage/6243-couche-nuageuse-WallFizz.jpg", "6243-couche-nuageuse-WallFizz", "", 0, ""))
-//        data.add(WallpaperItem("https://i.redd.it/24y4a814zy801.jpg", "24y4a814zy801", "", 0, ""))
-//        data.add(WallpaperItem("http://wallpaperlepi.com/wp-content/uploads/2015/09/Sea-Of-Colors-Abstract-HD-Images.jpg", "Sea-Of-Colors-Abstract-HD-Images", "", 0, ""))
-//        data.add(WallpaperItem("https://i.imgur.com/eWtfMME.png", "eWtfMME", "", 0, ""))
-//        data.add(WallpaperItem("https://img00.deviantart.net/1dd4/i/2017/157/7/6/the_deer_by_kryseis_art-dbbuawk.jpg", "the_deer_by_kryseis_art-dbbuawk", "", 0, ""))
-//        data.add(WallpaperItem("http://www.eyehearttravel.com/wp-content/uploads/2012/05/39547302947455316_MHlccWEz_f.jpg", "39547302947455316_MHlccWEz_f", "", 0, ""))
-//        data.add(WallpaperItem("http://www.backgroundimageshd.com/wp-content/uploads/2017/12/landscape-wallpaper-free-computer-hd37-.jpg", "landscape-wallpaper-free-computer-hd37", "", 0, ""))
-//        data.add(WallpaperItem("http://www.backgroundimageshd.com/wp-content/uploads/2017/12/my-wallpaper40-.jpg", "my-wallpaper40-.jpg", "", 0, ""))
-//        data.add(WallpaperItem("http://www.backgroundimageshd.com/wp-content/uploads/2017/12/Mountains-1920x1080-Wallpapers38-.jpg", "Mountains-1920x1080-Wallpapers38", "", 0, ""))
-//        data.add(WallpaperItem("http://www.backgroundimageshd.com/wp-content/uploads/2017/12/Interesting-Star-Wars-1920x108036-.jpg", "Interesting-Star-Wars-1920x108036", "", 0, ""))
+    fun getCategories() {
+        val categoryList = mutableListOf<WallpaperCategory>()
+        categoryList.add(WallpaperCategory(R.drawable.cid_meinv, Constant.CATEGORY.REQUEST_ID_BELLE, "BELLE", "", ""))
+        categoryList.add(WallpaperCategory(R.drawable.cid_qichce, Constant.CATEGORY.REQUEST_ID_CAR, "CAR", "", ""))
+        categoryList.add(WallpaperCategory(R.drawable.cid_dongman, Constant.CATEGORY.REQUEST_ID_COMIC, "COMIC", "", ""))
+        categoryList.add(WallpaperCategory(R.drawable.cid_qingxin, Constant.CATEGORY.REQUEST_ID_EMOTION, "EMOTION", "", ""))
+        categoryList.add(WallpaperCategory(R.drawable.cid_shishang, Constant.CATEGORY.REQUEST_ID_FASHION, "FASHION", "", ""))
+        categoryList.add(WallpaperCategory(R.drawable.cid_youxi, Constant.CATEGORY.REQUEST_ID_GAME, "GAME", "", ""))
+        categoryList.add(WallpaperCategory(R.drawable.cid_aiqing, Constant.CATEGORY.REQUEST_ID_LOVE, "LOVE", "", ""))
+        categoryList.add(WallpaperCategory(R.drawable.cid_junshi, Constant.CATEGORY.REQUEST_ID_MILITARY, "MILITARY", "", ""))
+        categoryList.add(WallpaperCategory(R.drawable.cid_mengchun, Constant.CATEGORY.REQUEST_ID_PET, "PET", "", ""))
+        categoryList.add(WallpaperCategory(R.drawable.cid_jueban, Constant.CATEGORY.REQUEST_ID_QUALITY, "QUALITY", "", ""))
+        categoryList.add(WallpaperCategory(R.drawable.cid_fengjing, Constant.CATEGORY.REQUEST_ID_SCENERY, "SCENERY", "", ""))
+        categoryList.add(WallpaperCategory(R.drawable.cid_yundong, Constant.CATEGORY.REQUEST_ID_SPORT, "SPORT", "", ""))
+        categoryList.add(WallpaperCategory(R.drawable.cid_mingxing, Constant.CATEGORY.REQUEST_ID_STAR, "STAR", "", ""))
+        categoryList.add(WallpaperCategory(R.drawable.cid_wenzi, Constant.CATEGORY.REQUEST_ID_WORD, "WORD", "", ""))
 
-
-        WallpaperModel.instance.getWallpaperByCategory(category, object : ValueEventListener {
+        WallpaperModel.instance.getCategories(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                data.clear()
-                for (postSnapshot in dataSnapshot.getChildren()) {
-                    val wallpaper = postSnapshot.getValue(WallpaperItem::class.java)
-                    if (wallpaper != null) {
-                        data.add(wallpaper)
-                    }
-                }
-                columnView.setWallpapers(data)
+                dataSnapshot.children.forEachIndexed { index, dataSnapshot -> categoryList[index].count = dataSnapshot.value.toString() }
+                categoryView.onCategoriesReady(categoryList)
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
-                // Getting Item failed, log a message
                 Log.w("MainActivity", "loadItem:onCancelled", databaseError.toException())
             }
         })
