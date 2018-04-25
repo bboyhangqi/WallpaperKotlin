@@ -10,7 +10,8 @@
         android:id="@+id/iv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="centerCrop" />
+        android:scaleType="centerCrop"
+        android:onClick="showPreview"/>
 
     <Button
         android:id="@+id/btn_back"
@@ -49,6 +50,15 @@
         android:layout_toEndOf="@+id/btn_set_wallpaper"
         android:background="@drawable/collect_btn_selector"
         android:onClick="collect" />
+
+
+    <ImageView
+        android:id="@+id/iv_preview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/preview"
+        android:scaleType="fitStart"
+        android:visibility="invisible"/>
 
 
 </RelativeLayout>

@@ -26,6 +26,12 @@
         <activity
             android:name=".ui.activity.EntryActivity"
             android:label="@string/title_activity_entry"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".ui.activity.ColumnActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ui.activity.WellcomeActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -33,10 +39,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ui.activity.ColumnActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ui.fragment.WellcomeActivity"></activity>
     </application>
 
 </manifest>

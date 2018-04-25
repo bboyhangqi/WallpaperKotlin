@@ -43,14 +43,20 @@ class Constant {
         }
     }
 
-    object PREVIEW_TYPE{
+    object PREVIEW_TYPE {
         val LOCAL = 1
         val ONLINE = 2
     }
 
-    object BROADCAST_ACTION{
+    object BROADCAST_ACTION {
         val ACTION_IMAGE_DOWNLOADED = "com.mum.wallpaper.action.ACTION_IMAGE_DOWNLOADED"
         val ACTION_IMAGE_COLLECTED = "com.mum.wallpaper.action.ACTION_IMAGE_COLLECTED"
+    }
+
+    object HOME_PAGE_ID {
+        val PAGE_HOT = 1
+        val PAGE_CATEGORY = 2
+        val PAGE_LOCAL = 3
     }
 
 

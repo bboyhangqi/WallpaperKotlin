@@ -1,6 +1,7 @@
 package app.mumandroidproject.helper
 
 import android.content.Context
+import android.util.Log
 import app.mumandroidproject.bean.LocalImageItem
 import app.mumandroidproject.bean.WallpaperItem
 import com.google.gson.Gson
@@ -63,6 +64,7 @@ class SharePerferenceHelper private constructor() {
         fun getCollectWallpapers(context: Context): Array<WallpaperItem> {
             val sp = context?.getSharedPreferences("collect", Context.MODE_PRIVATE)
             val gsonStr = sp?.getString("collected_images", null) ?: return emptyArray()
+            Log.d("debug","zhq.......gsonStr: $gsonStr")
             return Gson().fromJson(gsonStr, Array<WallpaperItem>::class.java)
         }
 

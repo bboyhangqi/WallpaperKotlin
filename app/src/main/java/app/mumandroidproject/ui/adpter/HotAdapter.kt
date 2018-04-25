@@ -26,8 +26,8 @@ class HotAdapter(var data: MutableList<WallpaperItem>) : RecyclerView.Adapter<Ho
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.imageView.loadByGlide(data[position].url)
-        holder.date.text = this.convertDate(data[position].date.substring(0,2))
-        holder.monthYear.text = data[position].date.substring(3, 10)
+        holder.date.text = data[position].date.substring(3, 5)
+        holder.month.text = convertDate(data[position].date.substring(0, 2))
         holder.description.text = data[position].desc
         holder.like.text = data[position].like.toString()
         holder.itemView.findViewById<View>(R.id.root).setOnClickListener { onClick(it, data[position]) }
@@ -48,13 +48,13 @@ class HotAdapter(var data: MutableList<WallpaperItem>) : RecyclerView.Adapter<Ho
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var imageView = itemView.findViewById<ImageView>(R.id.iv)
         var date = itemView.findViewById<TextView>(R.id.date)
-        var monthYear = itemView.findViewById<TextView>(R.id.monthYear)
+        var month = itemView.findViewById<TextView>(R.id.month)
         var description = itemView.findViewById<TextView>(R.id.description)
         var like = itemView.findViewById<TextView>(R.id.like)
     }
 
-    fun convertDate(dateInput : String) : String {
-        when(dateInput.toInt()) {
+    fun convertDate(dateInput: String): String {
+        when (dateInput.toInt()) {
             1 -> {
                 return "January"
             }

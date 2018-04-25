@@ -5,6 +5,7 @@ import android.graphics.Bitmap
 import android.os.Build
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.support.annotation.RequiresApi
 import android.util.Log
 import android.view.View
@@ -24,6 +25,8 @@ import app.mumandroidproject.helper.LocalHelper
 import app.mumandroidproject.helper.NotificationHelper
 import app.mumandroidproject.helper.SharePerferenceHelper
 import app.mumandroidproject.helper.WallpaperHelper
+import com.nineoldandroids.animation.AnimatorSet
+import com.nineoldandroids.animation.ObjectAnimator
 import io.reactivex.Observable
 import io.reactivex.ObservableOnSubscribe
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -76,6 +79,33 @@ class PreviewActivity : AppCompatActivity(), RequestListener<Bitmap> {
         SharePerferenceHelper.addDownloadWallpaper(this, LocalImageItem(path))
         sendBroadcast(Intent(Constant.BROADCAST_ACTION.ACTION_IMAGE_DOWNLOADED))
         NotificationHelper.sendMsg(this, "Notice", "wallpaper download success", R.drawable.ok)
+    }
+
+    private var previewIsShown = false
+
+    fun showPreview(view: View) {
+        if (!previewIsShown) {
+            iv_preview.visibility = View.VISIBLE
+            val bgScaleSet = AnimatorSet()
+            val bgAnimatorX = ObjectAnimator.ofFloat(iv_preview, "scaleX", 1.3f, 1.0f)
+            val bgAnimatorY = ObjectAnimator.ofFloat(iv_preview, "scaleY", 1.3f, 1.0f)
+            bgScaleSet.duration = 1000
+            bgScaleSet.play(bgAnimatorX).with(bgAnimatorY)
+            bgScaleSet.start()
+            previewIsShown = true
+        } else {
+            val bgScaleSet = AnimatorSet()
+            val bgAnimatorX = ObjectAnimator.ofFloat(iv_preview, "scaleX", 1.0f, 1.5f)
+            val bgAnimatorY = ObjectAnimator.ofFloat(iv_preview, "scaleY", 1.0f, 1.5f)
+            bgScaleSet.duration = 1000
+            bgScaleSet.play(bgAnimatorX).with(bgAnimatorY)
+            bgScaleSet.start()
+            Handler().postDelayed({
+                iv_preview.visibility = View.INVISIBLE
+                previewIsShown = false
+            },200)
+        }
+
     }
 
 

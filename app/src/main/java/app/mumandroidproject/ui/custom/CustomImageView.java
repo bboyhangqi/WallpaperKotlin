@@ -21,21 +21,21 @@ import app.mumandroidproject.R;
  * Created by zhaomingming-s on 2015/11/2.
  */
 @SuppressLint("AppCompatCustomView")
-public class LocalImageView extends ImageView {
+public class CustomImageView extends ImageView {
 
     private static final String TAG = "LocalImageView";
 
     private AlphaAnimation mInAnimatio;
 
-    public LocalImageView(Context context) {
+    public CustomImageView(Context context) {
         super(context);
     }
 
-    public LocalImageView(Context context, AttributeSet attrs) {
+    public CustomImageView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public LocalImageView(Context context, AttributeSet attrs, int defStyle) {
+    public CustomImageView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
 
