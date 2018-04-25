@@ -12,6 +12,7 @@ import app.mumandroidproject.R
 import app.mumandroidproject.bean.WallpaperItem
 import app.mumandroidproject.extension.loadByGlide
 import app.mumandroidproject.ui.activity.ColumnActivity
+import app.mumandroidproject.ui.activity.PreviewActivity
 import java.util.*
 
 /**
@@ -29,7 +30,7 @@ class HotAdapter(var data: MutableList<WallpaperItem>) : RecyclerView.Adapter<Ho
         holder.monthYear.text = data[position].date.substring(3, 10)
         holder.description.text = data[position].desc
         holder.like.text = data[position].like.toString()
-//        holder.itemView.findViewById<View>(R.id.root).setOnClickListener { onClick(it, data[position].category, data[position].name) }
+        holder.itemView.findViewById<View>(R.id.root).setOnClickListener { onClick(it, data[position]) }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -37,9 +38,10 @@ class HotAdapter(var data: MutableList<WallpaperItem>) : RecyclerView.Adapter<Ho
         return ViewHolder(view)
     }
 
-    fun onClick(view: View, category: String) {
-        var intent = Intent(view.context, ColumnActivity::class.java)
-        intent.putExtra("category", category)
+    fun onClick(view: View, wallpaperItem: WallpaperItem) {
+        val intent = Intent(view.context, PreviewActivity::class.java)
+        intent.putExtra("flag", "online")
+        intent.putExtra("wallpaperItem", wallpaperItem)
         view.context.startActivity(intent)
     }
 
