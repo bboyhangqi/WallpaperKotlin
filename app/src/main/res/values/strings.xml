@@ -8,17 +8,17 @@
     <string name="section_format">Hello World from section: %1$d</string>
 
 
-    <string name="loading_wallpaper">正在加载壁纸...</string>
-    <string name="setting_wallpaper">正在设置壁纸...</string>
-    <string name="finish_setting_wallpaper">壁纸设定成功</string>
-    <string name="error_setting_wallpaper">壁纸设定失败</string>
-    <string name="error_download_wallpaper">壁纸加载失败</string>
-    <string name="finish_download_wallpaper">壁纸加载成功</string>
+    <string name="loading_wallpaper">Loading...</string>
+    <string name="setting_wallpaper">Setting...</string>
+    <string name="finish_setting_wallpaper">apply success</string>
+    <string name="error_setting_wallpaper">fail to apply</string>
+    <string name="error_download_wallpaper">fail to download</string>
+    <string name="finish_download_wallpaper">download success</string>
 
     <string name="dialog_remove_image">Do you want to delete？</string>
-    <string name="dialog_apply_image">应用该壁纸？</string>
+    <string name="dialog_apply_image">apply？</string>
 
-    <string name="button_apply">应用</string>
+    <string name="button_apply">apply</string>
     <string name="button_cancel">Cancel</string>
     <string name="button_ok">Delete</string>
 </resources>

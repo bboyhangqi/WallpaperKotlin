@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.navigation_bar.view.*
 /**
  * Created by CodingHome on 4/16/18.
  */
-class WallpaperNavigationBar(context: Context?, attrs: AttributeSet?) : RelativeLayout(context, attrs) {
+class CustomNavigationBar(context: Context?, attrs: AttributeSet?) : RelativeLayout(context, attrs) {
 
     init {
         var view = LayoutInflater.from(context).inflate(R.layout.navigation_bar, this, false)
