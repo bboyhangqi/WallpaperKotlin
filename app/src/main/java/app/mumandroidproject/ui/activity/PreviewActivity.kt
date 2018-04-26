@@ -137,7 +137,7 @@ class PreviewActivity : AppCompatActivity(), RequestListener<Bitmap>, PreviewVie
         state = Constant.PREVIEW_PAGE_STATE.STATE_SETTING
         when (previewType) {
             Constant.PREVIEW_TYPE.LOCAL -> previewPresenter.setWallpaperFromLocal(iv.getBitmapFromArea(), this)
-            Constant.PREVIEW_TYPE.ONLINE -> previewPresenter.setWallpaper(bitmap, this)
+            Constant.PREVIEW_TYPE.ONLINE -> previewPresenter.setWallpaper(iv.getBitmapFromArea(), this)
         }
     }
 

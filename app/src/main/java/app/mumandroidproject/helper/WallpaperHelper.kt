@@ -17,6 +17,7 @@ class WallpaperHelper private constructor() {
             val myWallpaperManager = WallpaperManager.getInstance(context)
             try {
                 myWallpaperManager.setBitmap(bitmap)
+                bitmap?.recycle()
             } catch (e: IOException) {
                 Toast.makeText(context, "fail to set wallpaper", Toast.LENGTH_SHORT).show()
             }
