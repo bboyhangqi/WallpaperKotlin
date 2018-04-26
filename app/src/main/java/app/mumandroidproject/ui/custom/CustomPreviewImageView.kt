@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory
 import android.graphics.Canvas
 import android.graphics.Matrix
 import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
 import android.graphics.drawable.TransitionDrawable
 import android.util.AttributeSet
 import android.util.Log
@@ -21,18 +22,26 @@ class CustomPreviewImageView(context: Context?, attrs: AttributeSet?) : ImageVie
 
     private var mMatrix = Matrix()
     private var positonX = -10000f
+    private var translateX = -10000f
     private var currentX = 0f
     private var startX = 0f
-    private var offsetX = 0f
-    private var draggable = true
+    private var draggable = false
 
     fun setDraggable(draggable: Boolean) {
         this.draggable = draggable
     }
 
+
+
     fun getBitmapFromArea(): Bitmap? {
         var bitmapDrawable = drawable as BitmapDrawable
-        return Bitmap.createBitmap(bitmapDrawable.bitmap, 0, 0, width, bitmapDrawable.bitmap.height)
+        val scale: Float = width.toFloat() / height.toFloat()
+        var x = positonX.toInt()
+        var width = (scale * drawable.intrinsicHeight).toInt()
+        if (x + width > drawable.intrinsicWidth) {
+            x = drawable.intrinsicWidth - width
+        }
+        return Bitmap.createBitmap(bitmapDrawable.bitmap, x, 0, width, drawable.intrinsicHeight)
     }
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
@@ -46,8 +55,7 @@ class CustomPreviewImageView(context: Context?, attrs: AttributeSet?) : ImageVie
             MotionEvent.ACTION_MOVE -> {
                 if (draggable) {
                     currentX = event.rawX
-                    offsetX = currentX - startX
-                    positonX -= offsetX
+                    translateX -= currentX - startX
                     invalidate()
                     startX = event.rawX
                 }
@@ -63,28 +71,37 @@ class CustomPreviewImageView(context: Context?, attrs: AttributeSet?) : ImageVie
             val dHeight = drawable.intrinsicHeight
             val dWidth = drawable.intrinsicWidth
 
-            Log.d(TAG, "zhq.debug dWidth: $dWidth")
-            Log.d(TAG, "zhq.debug vWidth: $vWidth")
-            Log.d(TAG, "zhq.debug positonX: $positonX")
             val scale = vHeight / dHeight.toFloat()
+
             mMatrix.setScale(scale, scale)
-            if (positonX < -9999f) {
-                positonX = dWidth / 2f
+            if (translateX < -9999f) {
+                translateX = vWidth / 2f
             }
 
-            if (positonX > vWidth) {
-                positonX = vWidth
+            if (translateX > dWidth * scale - vWidth) {
+                translateX = dWidth * scale - vWidth
             }
 
-            if (positonX < 0) {
-                positonX = 0f
+            if (translateX < 0) {
+                translateX = 0f
             }
-            mMatrix.postTranslate(-positonX, 0f)
+            positonX = translateX / scale
+            mMatrix.postTranslate(-translateX, 0f)
             canvas.concat(mMatrix)
             drawable.draw(canvas)
         } else {
             super.onDraw(canvas)
         }
+    }
+
+    override fun setImageBitmap(bm: Bitmap?) {
+        super.setImageBitmap(bm)
+        Log.d(TAG, "setImageBitmap ${bm?.width}")
+    }
+
+    override fun setImageDrawable(drawable: Drawable?) {
+        super.setImageDrawable(drawable)
+        Log.d(TAG, "setImageDrawable ${drawable?.intrinsicWidth}")
     }
 
 

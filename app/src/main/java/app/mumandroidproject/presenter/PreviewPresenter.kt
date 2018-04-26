@@ -32,6 +32,15 @@ class PreviewPresenter(var previewView: PreviewView) {
                 })
     }
 
+    fun setWallpaperFromLocal(bitmap: Bitmap?, context: Context) {
+        Observable.create(ObservableOnSubscribe<Unit> { e -> e.onNext(WallpaperHelper.setWallpaper(bitmap, context)) })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    previewView.onWallpaperSetFromLocal()
+                })
+    }
+
     fun setWallpaper(bitmap: Bitmap?, context: Context) {
         Observable.create(ObservableOnSubscribe<Unit> { e -> e.onNext(WallpaperHelper.setWallpaper(bitmap, context)) })
                 .subscribeOn(Schedulers.io())

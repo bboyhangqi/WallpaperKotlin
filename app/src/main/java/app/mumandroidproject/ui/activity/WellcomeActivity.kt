@@ -50,6 +50,7 @@ class WellcomeActivity : AppCompatActivity(), Animator.AnimatorListener {
     override fun onAnimationEnd(animation: Animator?) {
         if(animation==bgScaleSet){
             startActivity(Intent(this, EntryActivity::class.java))
+            finish()
         }
 
     }
