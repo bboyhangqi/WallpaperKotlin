@@ -13,8 +13,8 @@ import app.mumandroidproject.constant.Constant
 /**
  * Created by CodingHome on 4/14/18.
  */
-class WallpaperModel () {
-    lateinit var ref : DatabaseReference
+class WallpaperModel private constructor() {
+    lateinit var ref: DatabaseReference
     lateinit var wallpaperList: MutableList<WallpaperItem>
 
     object HOLDER {
@@ -26,12 +26,12 @@ class WallpaperModel () {
     }
 
 
-    fun getCategories(listen:ValueEventListener){
+    fun getCategories(listen: ValueEventListener) {
         ref = FirebaseDatabase.getInstance().getReference("Category")
         ref.addValueEventListener(listen)
     }
 
-    fun getWallpaperByCategory(category: String, listen:ValueEventListener) {
+    fun getWallpaperByCategory(category: String, listen: ValueEventListener) {
         ref = FirebaseDatabase.getInstance().getReference("pictures")
         ref.orderByChild("category").equalTo(category).addValueEventListener(listen)
     }
@@ -40,17 +40,17 @@ class WallpaperModel () {
         return null
     }
 
-    fun getHotWallpaper(listen:ValueEventListener){
+    fun getHotWallpaper(listen: ValueEventListener) {
         ref = FirebaseDatabase.getInstance().getReference("pictures")
         ref.orderByChild("like").limitToLast(20).addValueEventListener(listen)
     }
 
-    fun setLikeForWallpaper(url: String, listen: ValueEventListener){
+    fun setLikeForWallpaper(url: String, listen: ValueEventListener) {
         ref = FirebaseDatabase.getInstance().getReference("pictures")
         ref.orderByChild("url").equalTo(url).addValueEventListener(listen)
     }
 
-    fun unLikeForWallpaper(url: String, listen: ValueEventListener){
+    fun unLikeForWallpaper(url: String, listen: ValueEventListener) {
         ref = FirebaseDatabase.getInstance().getReference("pictures")
         ref.orderByChild("url").equalTo(url).addValueEventListener(listen)
     }

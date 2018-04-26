@@ -90,7 +90,7 @@ class PreviewPresenter(var previewView: PreviewView) {
 
     fun unCollectWallpaper(wallpaperItem: WallpaperItem?, context: Context) {
         Observable.create(ObservableOnSubscribe<Unit> { e ->
-            e.onNext(SharePerferenceHelper.deleteCollectWallpaper(context, wallpaperItem!!))
+            e.onNext(handleRemove(wallpaperItem!!, context))
         })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -123,6 +123,7 @@ class PreviewPresenter(var previewView: PreviewView) {
     }
 
     private fun handleRemove(wallpaperItem: WallpaperItem?, context: Context) {
+        Log.d("PreviewPresenter","zhq.debug  handleRemove")
         SharePerferenceHelper.deleteCollectWallpaper(context, wallpaperItem)
         WallpaperModel.instance.unLikeForWallpaper(wallpaperItem?.url.toString(), object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -132,7 +133,6 @@ class PreviewPresenter(var previewView: PreviewView) {
                     }
                 }
                 dataSnapshot.ref.removeEventListener(this)
-                Log.d("debug","handleRemove")
             }
 
             override fun onCancelled(databaseError: DatabaseError) {

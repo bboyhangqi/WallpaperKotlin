@@ -114,7 +114,7 @@ class CollectAdapter(var data: Array<WallpaperItem>, windowManager: WindowManage
 
         private fun goToPreview(item: WallpaperItem?) {
             val intent = Intent(itemView.context, PreviewActivity::class.java)
-            intent.putExtra("flag", "online")
+            intent.putExtra("flag", "collect")
             intent.putExtra("wallpaperItem", item)
             itemView.context.startActivity(intent)
         }

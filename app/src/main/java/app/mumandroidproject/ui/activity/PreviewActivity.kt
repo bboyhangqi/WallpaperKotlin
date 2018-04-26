@@ -45,6 +45,7 @@ class PreviewActivity : AppCompatActivity(), RequestListener<Bitmap>, PreviewVie
         when (flag) {
             "local" -> previewType = Constant.PREVIEW_TYPE.LOCAL
             "online" -> previewType = Constant.PREVIEW_TYPE.ONLINE
+            "collect" ->previewType = Constant.PREVIEW_TYPE.COLLECT
         }
         updateUI()
     }
@@ -61,6 +62,14 @@ class PreviewActivity : AppCompatActivity(), RequestListener<Bitmap>, PreviewVie
                 iv.loadByGlide(wallpaperItem?.url, this)
                 isCollected = previewPresenter.isWallpaperCollected(wallpaperItem, this)
                 updateCollectedIcon()
+            }
+            Constant.PREVIEW_TYPE.COLLECT -> {
+                wallpaperItem = intent.getSerializableExtra("wallpaperItem") as WallpaperItem
+                iv.loadByGlide(wallpaperItem?.url, this)
+                isCollected = previewPresenter.isWallpaperCollected(wallpaperItem, this)
+                updateCollectedIcon()
+                btn_collect.visibility = View.GONE
+                btn_down.visibility = View.GONE
             }
         }
     }

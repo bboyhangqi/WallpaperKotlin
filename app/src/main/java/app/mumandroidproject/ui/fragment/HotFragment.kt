@@ -46,19 +46,21 @@ class HotFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        WallpaperModel.instance.getHotWallpaper(object : ValueEventListener{
+        WallpaperModel.instance.getHotWallpaper(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                wallpaperList.clear()
+               // wallpaperList.clear()
                 for (postSnapshot in dataSnapshot.getChildren()) {
                     val wallpaper = postSnapshot.getValue(WallpaperItem::class.java)
                     if (wallpaper != null) {
                         wallpaperList.add(wallpaper)
                     }
                 }
-                Collections.reverse(wallpaperList)
-                val hotAdapter = HotAdapter(wallpaperList)
-                rv.layoutManager = LinearLayoutManager(HotFragment.instance.context)
-                rv.adapter = hotAdapter
+                if (rv != null) {
+                    Collections.reverse(wallpaperList)
+                    val hotAdapter = HotAdapter(wallpaperList)
+                    rv.layoutManager = LinearLayoutManager(HotFragment.instance.context)
+                    rv.adapter = hotAdapter
+                }
             }
 
             override fun onCancelled(databaseError: DatabaseError) {

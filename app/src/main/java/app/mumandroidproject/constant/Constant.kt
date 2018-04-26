@@ -46,6 +46,7 @@ class Constant {
     object PREVIEW_TYPE {
         val LOCAL = 1
         val ONLINE = 2
+        val COLLECT = 3
     }
 
     object BROADCAST_ACTION {
