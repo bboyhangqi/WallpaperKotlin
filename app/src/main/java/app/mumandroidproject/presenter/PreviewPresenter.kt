@@ -33,7 +33,6 @@ import java.util.*
 //import javax.swing.UIManager.put
 
 
-
 /**
  * Created by CodingHome on 4/24/18.
  */
@@ -80,18 +79,31 @@ class PreviewPresenter(var previewView: PreviewView) {
 
     fun collectWallpaper(wallpaperItem: WallpaperItem?, context: Context) {
         Observable.create(ObservableOnSubscribe<Unit> { e ->
-            e.onNext(handleCollect(wallpaperItem,context))
+            e.onNext(handleCollect(wallpaperItem, context))
         })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     previewView.onWallpaperCollected()
                 })
-
-
     }
 
-    private fun handleCollect(wallpaperItem: WallpaperItem?, context: Context){
+    fun unCollectWallpaper(wallpaperItem: WallpaperItem?, context: Context) {
+        Observable.create(ObservableOnSubscribe<Unit> { e ->
+            e.onNext(SharePerferenceHelper.deleteCollectWallpaper(context, wallpaperItem!!))
+        })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    previewView.onWallpaperUncollected()
+                })
+    }
+
+    fun isWallpaperCollected(wallpaperItem: WallpaperItem?, context: Context): Boolean {
+        return SharePerferenceHelper.isWallpaperCollected(context, wallpaperItem!!)
+    }
+
+    private fun handleCollect(wallpaperItem: WallpaperItem?, context: Context) {
         SharePerferenceHelper.addCollectWallpaper(context, wallpaperItem!!)
         WallpaperModel.instance.setLikeForWallpaper(wallpaperItem?.url.toString(), object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -110,8 +122,8 @@ class PreviewPresenter(var previewView: PreviewView) {
         })
     }
 
-    private fun handleRemove(wallpaperItem: WallpaperItem?, context: Context){
-        SharePerferenceHelper.addCollectWallpaper(context, wallpaperItem!!)
+    private fun handleRemove(wallpaperItem: WallpaperItem?, context: Context) {
+        SharePerferenceHelper.deleteCollectWallpaper(context, wallpaperItem)
         WallpaperModel.instance.unLikeForWallpaper(wallpaperItem?.url.toString(), object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for (postSnapshot in dataSnapshot.getChildren()) {
@@ -120,6 +132,7 @@ class PreviewPresenter(var previewView: PreviewView) {
                     }
                 }
                 dataSnapshot.ref.removeEventListener(this)
+                Log.d("debug","handleRemove")
             }
 
             override fun onCancelled(databaseError: DatabaseError) {

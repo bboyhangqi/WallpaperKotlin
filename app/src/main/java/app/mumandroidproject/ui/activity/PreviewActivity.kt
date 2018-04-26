@@ -36,6 +36,8 @@ class PreviewActivity : AppCompatActivity(), RequestListener<Bitmap>, PreviewVie
     private var previewPresenter = PreviewPresenter(this)
     private var state = Constant.PREVIEW_PAGE_STATE.STATE_IDAL
 
+    private var isCollected = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_preview)
@@ -57,9 +59,17 @@ class PreviewActivity : AppCompatActivity(), RequestListener<Bitmap>, PreviewVie
             Constant.PREVIEW_TYPE.ONLINE -> {
                 wallpaperItem = intent.getSerializableExtra("wallpaperItem") as WallpaperItem
                 iv.loadByGlide(wallpaperItem?.url, this)
+                isCollected = previewPresenter.isWallpaperCollected(wallpaperItem, this)
+                updateCollectedIcon()
             }
         }
+    }
 
+    private fun updateCollectedIcon() {
+        if (isCollected)
+            btn_collect.setBackgroundResource(R.drawable.collect_btn_p)
+        else
+            btn_collect.setBackgroundResource(R.drawable.collect_btn)
     }
 
 
@@ -111,7 +121,12 @@ class PreviewActivity : AppCompatActivity(), RequestListener<Bitmap>, PreviewVie
 
     override fun onWallpaperCollected() {
         sendBroadcast(Intent(Constant.BROADCAST_ACTION.ACTION_IMAGE_COLLECTED))
-        Toast.makeText(this, "Collected", Toast.LENGTH_SHORT).show()
+        state = Constant.PREVIEW_PAGE_STATE.STATE_IDAL
+    }
+
+    override fun onWallpaperUncollected() {
+        Log.d(TAG,"zhq.debug onWallpaperUncollected")
+        sendBroadcast(Intent(Constant.BROADCAST_ACTION.ACTION_IMAGE_UNCOLLECTED))
         state = Constant.PREVIEW_PAGE_STATE.STATE_IDAL
     }
 
@@ -147,7 +162,12 @@ class PreviewActivity : AppCompatActivity(), RequestListener<Bitmap>, PreviewVie
             return
         }
         state = Constant.PREVIEW_PAGE_STATE.STATE_COLLECTING
-        previewPresenter.collectWallpaper(wallpaperItem, this)
+        if (isCollected)
+            previewPresenter.unCollectWallpaper(wallpaperItem, this)
+        else
+            previewPresenter.collectWallpaper(wallpaperItem, this)
+        isCollected = !isCollected
+        updateCollectedIcon()
     }
 
     override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Bitmap>?, isFirstResource: Boolean): Boolean {

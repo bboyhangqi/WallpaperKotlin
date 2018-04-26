@@ -12,4 +12,6 @@ interface PreviewView{
     fun onWallpaperDownloaded()
 
     fun onWallpaperCollected()
+
+    fun onWallpaperUncollected()
 }

@@ -45,9 +45,12 @@ class LocalFragment : Fragment(), LocalView {
     private val intentFilter = IntentFilter()
     private var broadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
+            Log.d(TAG,"zhq.debug onReceive action: ${intent?.action}")
             if (intent?.action == Constant.BROADCAST_ACTION.ACTION_IMAGE_DOWNLOADED) {
                 updateDownLoadedImages()
             } else if (intent?.action == Constant.BROADCAST_ACTION.ACTION_IMAGE_COLLECTED) {
+                updateCollectImages()
+            } else if (intent?.action == Constant.BROADCAST_ACTION.ACTION_IMAGE_UNCOLLECTED) {
                 updateCollectImages()
             }
         }
@@ -121,6 +124,7 @@ class LocalFragment : Fragment(), LocalView {
     }
 
     private fun updateCollectImages() {
+        Log.d(TAG,"zhq.debug    updateCollectImages")
         val imagePaths = SharePerferenceHelper.getCollectWallpapers(this.context!!)
         imagePaths.forEach { Log.d(TAG, "path: $it") }
         recyclerViewCollected?.adapter = CollectAdapter(imagePaths, activity!!.windowManager, localPresenter)

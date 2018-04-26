@@ -51,6 +51,7 @@ class Constant {
     object BROADCAST_ACTION {
         val ACTION_IMAGE_DOWNLOADED = "com.mum.wallpaper.action.ACTION_IMAGE_DOWNLOADED"
         val ACTION_IMAGE_COLLECTED = "com.mum.wallpaper.action.ACTION_IMAGE_COLLECTED"
+        val ACTION_IMAGE_UNCOLLECTED = "com.mum.wallpaper.action.ACTION_IMAGE_UNCOLLECTED"
     }
 
     object HOME_PAGE_ID {

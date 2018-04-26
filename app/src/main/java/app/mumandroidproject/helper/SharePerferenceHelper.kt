@@ -62,6 +62,12 @@ class SharePerferenceHelper private constructor() {
             storeCollectWallpapers(context, list)
         }
 
+        fun isWallpaperCollected(context: Context, item: WallpaperItem): Boolean {
+            val array = getCollectWallpapers(context)
+            val list = array.toMutableList()
+            return list.filter { it.url == item.url }.count() > 0
+        }
+
 
         private fun storeCollectWallpapers(context: Context, list: List<WallpaperItem>) {
             val sp = context.getSharedPreferences("collect", Context.MODE_PRIVATE)
@@ -78,10 +84,13 @@ class SharePerferenceHelper private constructor() {
         }
 
         fun deleteCollectWallpaper(context: Context, wallpaperItem: WallpaperItem?) {
+            Log.d("debug","zhq.debug deleteCollectWallpaper url${wallpaperItem?.url}")
             val arrays = getCollectWallpapers(context)
             val list = arrays.toMutableList()
-            if (list.contains(wallpaperItem)) {
-                list.remove(wallpaperItem)
+            for (item in list){
+                if(item.url == wallpaperItem?.url){
+                    list.remove(item)
+                }
             }
             storeCollectWallpapers(context, list)
         }
