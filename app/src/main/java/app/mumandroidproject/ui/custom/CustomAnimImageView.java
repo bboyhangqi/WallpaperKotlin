@@ -11,6 +11,7 @@ import android.graphics.Shader;
 import android.graphics.drawable.BitmapDrawable;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.animation.AlphaAnimation;
 import android.widget.ImageView;
 
@@ -56,6 +57,7 @@ public class CustomAnimImageView extends ImageView {
         //绘画圆角区域
         BitmapDrawable drawable = (BitmapDrawable) getDrawable();
         Bitmap bitmap = drawable.getBitmap();
+        Log.d(TAG,"zhq.debug width: "+bitmap.getWidth());
         Paint paint = new Paint();
         paint.setShader(new BitmapShader(bitmap, BitmapShader.TileMode.CLAMP,
                 BitmapShader.TileMode.CLAMP));

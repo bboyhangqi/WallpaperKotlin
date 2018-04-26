@@ -6,11 +6,28 @@
     android:layout_height="match_parent"
     tools:context=".ui.activity.PreviewActivity">
 
+
     <app.mumandroidproject.ui.custom.CustomPreviewImageView
         android:id="@+id/iv"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:onClick="showPreview"/>
+        android:onClick="showPreview" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="80dp"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/iv_small"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+
+    </RelativeLayout>
+
 
     <Button
         android:id="@+id/btn_back"
@@ -55,9 +72,9 @@
         android:id="@+id/iv_preview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/preview"
         android:scaleType="fitStart"
-        android:visibility="invisible"/>
+        android:src="@drawable/preview"
+        android:visibility="invisible" />
 
 
 </RelativeLayout>

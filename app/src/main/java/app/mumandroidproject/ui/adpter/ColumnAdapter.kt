@@ -36,7 +36,6 @@ class ColumnAdapter(var data: List<WallpaperItem>, var categoryName: String, win
         screenWidth = size.x
         screenHeight = size.y
         headItem = data[0]
-
         for ((index, value) in data.withIndex()) {
             if (index == 0) continue
             if (index + 1 == data.size) {

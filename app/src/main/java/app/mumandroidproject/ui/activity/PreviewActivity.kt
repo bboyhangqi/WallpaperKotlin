@@ -23,6 +23,7 @@ import app.mumandroidproject.presenter.PreviewPresenter
 import app.mumandroidproject.view.PreviewView
 import com.nineoldandroids.animation.AnimatorSet
 import com.nineoldandroids.animation.ObjectAnimator
+import kotlinx.android.synthetic.main.activity_wellcome.*
 
 
 class PreviewActivity : AppCompatActivity(), RequestListener<Bitmap>, PreviewView {
@@ -58,6 +59,7 @@ class PreviewActivity : AppCompatActivity(), RequestListener<Bitmap>, PreviewVie
                 iv.loadByGlide(wallpaperItem?.url, this)
             }
         }
+
     }
 
 
@@ -118,7 +120,7 @@ class PreviewActivity : AppCompatActivity(), RequestListener<Bitmap>, PreviewVie
             Toast.makeText(this, "fail to download wallpaper", Toast.LENGTH_SHORT).show()
             return
         }
-        if(state == Constant.PREVIEW_PAGE_STATE.STATE_DOWNLOADING){
+        if (state == Constant.PREVIEW_PAGE_STATE.STATE_DOWNLOADING) {
             Toast.makeText(this, "wallpaper is downloading", Toast.LENGTH_SHORT).show()
             return
         }
@@ -127,20 +129,20 @@ class PreviewActivity : AppCompatActivity(), RequestListener<Bitmap>, PreviewVie
     }
 
     fun setWallpaper(view: View) {
-        Log.d(TAG,"zhq.debug setWallpaper previewType: $previewType")
-        if(state == Constant.PREVIEW_PAGE_STATE.STATE_SETTING){
+        Log.d(TAG, "zhq.debug setWallpaper previewType: $previewType")
+        if (state == Constant.PREVIEW_PAGE_STATE.STATE_SETTING) {
             Toast.makeText(this, "wallpaper is setting", Toast.LENGTH_SHORT).show()
             return
         }
         state = Constant.PREVIEW_PAGE_STATE.STATE_SETTING
         when (previewType) {
-            Constant.PREVIEW_TYPE.LOCAL -> previewPresenter.setWallpaperFromLocal(intent.getStringExtra("path"), this)
+            Constant.PREVIEW_TYPE.LOCAL -> previewPresenter.setWallpaperFromLocal(iv.getBitmapFromArea(), this)
             Constant.PREVIEW_TYPE.ONLINE -> previewPresenter.setWallpaper(bitmap, this)
         }
     }
 
     fun collect(view: View) {
-        if(state == Constant.PREVIEW_PAGE_STATE.STATE_COLLECTING){
+        if (state == Constant.PREVIEW_PAGE_STATE.STATE_COLLECTING) {
             Toast.makeText(this, "wallpaper is collecting", Toast.LENGTH_SHORT).show()
             return
         }
@@ -156,7 +158,8 @@ class PreviewActivity : AppCompatActivity(), RequestListener<Bitmap>, PreviewVie
     override fun onResourceReady(resource: Bitmap?, model: Any?, target: Target<Bitmap>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
         Log.d(TAG, "onResourceReady")
         bitmap = resource
-        return false
+        iv.setImageBitmap(bitmap)
+        return true
     }
 
     fun back(view: View) {
