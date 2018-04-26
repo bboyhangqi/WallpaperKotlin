@@ -109,7 +109,7 @@ class PreviewActivity : AppCompatActivity(), RequestListener<Bitmap>, PreviewVie
 
     override fun onWallpaperCollected() {
         sendBroadcast(Intent(Constant.BROADCAST_ACTION.ACTION_IMAGE_COLLECTED))
-        Toast.makeText(this, "Collected", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "Collected Nhan", Toast.LENGTH_SHORT).show()
         state = Constant.PREVIEW_PAGE_STATE.STATE_IDAL
     }
 

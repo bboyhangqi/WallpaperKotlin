@@ -3,6 +3,8 @@ package app.mumandroidproject.presenter
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
+import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.widget.Toast
 import app.mumandroidproject.R
 import app.mumandroidproject.bean.LocalImageItem
@@ -12,11 +14,23 @@ import app.mumandroidproject.helper.LocalHelper
 import app.mumandroidproject.helper.NotificationHelper
 import app.mumandroidproject.helper.SharePerferenceHelper
 import app.mumandroidproject.helper.WallpaperHelper
+import app.mumandroidproject.model.WallpaperModel
+import app.mumandroidproject.ui.adpter.HotAdapter
+import app.mumandroidproject.ui.fragment.HotFragment
 import app.mumandroidproject.view.PreviewView
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import io.reactivex.Observable
 import io.reactivex.ObservableOnSubscribe
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.fragment_category.*
+import java.util.*
+//import javax.swing.UIManager.put
+
+
 
 /**
  * Created by CodingHome on 4/24/18.
@@ -55,14 +69,33 @@ class PreviewPresenter(var previewView: PreviewView) {
 
     fun collectWallpaper(wallpaperItem: WallpaperItem?, context: Context) {
         Observable.create(ObservableOnSubscribe<Unit> { e ->
-            e.onNext(SharePerferenceHelper.addCollectWallpaper(context, wallpaperItem!!))
+            e.onNext(handleCollect(wallpaperItem,context))
         })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     previewView.onWallpaperCollected()
                 })
+
+
     }
 
+    private fun handleCollect(wallpaperItem: WallpaperItem?, context: Context){
+        SharePerferenceHelper.addCollectWallpaper(context, wallpaperItem!!)
+        WallpaperModel.instance.setLikeForWallpaper(wallpaperItem?.url.toString(), object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                for (postSnapshot in dataSnapshot.getChildren()) {
+                    if (postSnapshot.child("url").getValue().toString().equals(wallpaperItem?.url.toString())) {
+                        postSnapshot.ref.child("like").setValue(wallpaperItem?.like?.toInt()!!.plus(1))
+                    }
+                }
 
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                // Getting Item failed, log a message
+                Log.w("MainActivity", "loadItem:onCancelled", databaseError.toException())
+            }
+        })
+    }
 }

@@ -32,7 +32,6 @@ class WallpaperModel () {
     }
 
     fun getWallpaperByCategory(category: String, listen:ValueEventListener) {
-        Log.d("Nhanasdasd", category)
         ref = FirebaseDatabase.getInstance().getReference("pictures")
         ref.orderByChild("category").equalTo(category).addValueEventListener(listen)
     }
@@ -44,6 +43,11 @@ class WallpaperModel () {
     fun getHotWallpaper(listen:ValueEventListener){
         ref = FirebaseDatabase.getInstance().getReference("pictures")
         ref.orderByChild("like").limitToLast(20).addValueEventListener(listen)
+    }
+
+    fun setLikeForWallpaper(url: String, listen: ValueEventListener){
+        ref = FirebaseDatabase.getInstance().getReference("pictures")
+        ref.addValueEventListener(listen)
     }
 
 }
