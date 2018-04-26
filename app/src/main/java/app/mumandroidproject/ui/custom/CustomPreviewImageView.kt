@@ -1,10 +1,7 @@
 package app.mumandroidproject.ui.custom
 
 import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.graphics.Canvas
-import android.graphics.Matrix
+import android.graphics.*
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.TransitionDrawable
@@ -25,13 +22,13 @@ class CustomPreviewImageView(context: Context?, attrs: AttributeSet?) : ImageVie
     private var translateX = -10000f
     private var currentX = 0f
     private var startX = 0f
-    private var draggable = false
+    private var draggable = true
+
+    private var rectCanTouchArea: RectF? = null
 
     fun setDraggable(draggable: Boolean) {
         this.draggable = draggable
     }
-
-
 
     fun getBitmapFromArea(): Bitmap? {
         var bitmapDrawable = drawable as BitmapDrawable
@@ -44,6 +41,15 @@ class CustomPreviewImageView(context: Context?, attrs: AttributeSet?) : ImageVie
         return Bitmap.createBitmap(bitmapDrawable.bitmap, x, 0, width, drawable.intrinsicHeight)
     }
 
+    override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
+        super.onLayout(changed, left, top, right, bottom)
+        Log.d(TAG, "zhq.debug  height: $height")
+        Log.d(TAG, "zhq.debug  width: $width")
+        rectCanTouchArea = RectF(0f, height - 500f, width.toFloat(), height.toFloat())
+    }
+
+
+    private var block = false
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         when (event?.action) {
             MotionEvent.ACTION_DOWN -> {
@@ -51,14 +57,22 @@ class CustomPreviewImageView(context: Context?, attrs: AttributeSet?) : ImageVie
                 startX = event.rawX
             }
             MotionEvent.ACTION_UP -> {
+                if (block) {
+                    block = false
+                    return false
+                }
+
+
             }
             MotionEvent.ACTION_MOVE -> {
-                if (draggable) {
+                if (rectCanTouchArea?.contains(event.rawX, event.rawY)!!) {
+                    block = true
                     currentX = event.rawX
                     translateX -= currentX - startX
                     invalidate()
                     startX = event.rawX
                 }
+
             }
         }
         return super.onTouchEvent(event)

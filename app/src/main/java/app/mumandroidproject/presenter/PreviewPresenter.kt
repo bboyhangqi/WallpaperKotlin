@@ -98,9 +98,7 @@ class PreviewPresenter(var previewView: PreviewView) {
                         postSnapshot.ref.child("like").setValue(wallpaperItem?.like?.toInt()!!.plus(1))
                     }
                 }
-
             }
-
             override fun onCancelled(databaseError: DatabaseError) {
                 // Getting Item failed, log a message
                 Log.w("MainActivity", "loadItem:onCancelled", databaseError.toException())
