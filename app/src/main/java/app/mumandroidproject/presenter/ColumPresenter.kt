@@ -25,6 +25,7 @@ class ColumPresenter(var columnView: ColumnView) {
                     }
                 }
                 columnView.setWallpapers(data)
+                dataSnapshot.ref.removeEventListener(this)
             }
             override fun onCancelled(databaseError: DatabaseError) {
                 Log.w("MainActivity", "loadItem:onCancelled", databaseError.toException())

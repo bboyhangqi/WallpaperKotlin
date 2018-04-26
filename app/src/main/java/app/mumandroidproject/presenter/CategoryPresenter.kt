@@ -45,6 +45,7 @@ class CategoryPresenter(var categoryView: CategoryView) {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 dataSnapshot.children.forEachIndexed { index, dataSnapshot -> categoryList[index].count = dataSnapshot.value.toString() }
                 categoryView.onCategoriesReady(categoryList)
+                dataSnapshot.ref.removeEventListener(this)
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
