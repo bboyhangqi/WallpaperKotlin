@@ -50,4 +50,9 @@ class WallpaperModel () {
         ref.orderByChild("url").equalTo(url).addValueEventListener(listen)
     }
 
+    fun unLikeForWallpaper(url: String, listen: ValueEventListener){
+        ref = FirebaseDatabase.getInstance().getReference("pictures")
+        ref.orderByChild("url").equalTo(url).addValueEventListener(listen)
+    }
+
 }

@@ -92,17 +92,31 @@ class PreviewPresenter(var previewView: PreviewView) {
     }
 
     private fun handleCollect(wallpaperItem: WallpaperItem?, context: Context){
-        val updates = HashMap<String, Any>()
-
-        updates["like"] = wallpaperItem?.like?.toInt()!!.plus(1)
-
         SharePerferenceHelper.addCollectWallpaper(context, wallpaperItem!!)
         WallpaperModel.instance.setLikeForWallpaper(wallpaperItem?.url.toString(), object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for (postSnapshot in dataSnapshot.getChildren()) {
                     if (postSnapshot.child("url").getValue().toString().equals(wallpaperItem?.url.toString())) {
                         postSnapshot.ref.child("like").setValue(wallpaperItem?.like?.toInt()!!.plus(1))
-                        Log.d("Nhan",postSnapshot.toString())
+                    }
+                }
+                dataSnapshot.ref.removeEventListener(this)
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                // Getting Item failed, log a message
+                Log.w("MainActivity", "loadItem:onCancelled", databaseError.toException())
+            }
+        })
+    }
+
+    private fun handleRemove(wallpaperItem: WallpaperItem?, context: Context){
+        SharePerferenceHelper.addCollectWallpaper(context, wallpaperItem!!)
+        WallpaperModel.instance.unLikeForWallpaper(wallpaperItem?.url.toString(), object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                for (postSnapshot in dataSnapshot.getChildren()) {
+                    if (postSnapshot.child("url").getValue().toString().equals(wallpaperItem?.url.toString())) {
+                        postSnapshot.ref.child("like").setValue(wallpaperItem?.like?.toInt()!!.minus(1))
                     }
                 }
                 dataSnapshot.ref.removeEventListener(this)
