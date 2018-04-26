@@ -47,7 +47,7 @@ class WallpaperModel () {
 
     fun setLikeForWallpaper(url: String, listen: ValueEventListener){
         ref = FirebaseDatabase.getInstance().getReference("pictures")
-        ref.addValueEventListener(listen)
+        ref.orderByChild("url").equalTo(url).addValueEventListener(listen)
     }
 
 }
