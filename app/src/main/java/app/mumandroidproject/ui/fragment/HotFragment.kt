@@ -55,7 +55,7 @@ class HotFragment : Fragment() {
                 val hotAdapter = HotAdapter(wallpaperList)
                 rv.layoutManager = LinearLayoutManager(HotFragment.instance.context)
                 rv.adapter = hotAdapter
-                dataSnapshot.ref.removeEventListener(this)
+//                dataSnapshot.ref.removeEventListener(this)
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
