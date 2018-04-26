@@ -52,7 +52,7 @@ class SharePerferenceHelper private constructor() {
         fun addCollectWallpaper(context: Context, item: WallpaperItem) {
             val array = getCollectWallpapers(context)
             val list = array.toMutableList()
-            if (list.contains(item)) {
+            if (list.filter { it.url == item.url }.count() > 0) {
                 return
             }
             list.add(item)
@@ -70,7 +70,7 @@ class SharePerferenceHelper private constructor() {
         fun getCollectWallpapers(context: Context): Array<WallpaperItem> {
             val sp = context?.getSharedPreferences("collect", Context.MODE_PRIVATE)
             val gsonStr = sp?.getString("collected_images", null) ?: return emptyArray()
-            Log.d("debug","zhq.......gsonStr: $gsonStr")
+            Log.d("debug", "zhq.......gsonStr: $gsonStr")
             return Gson().fromJson(gsonStr, Array<WallpaperItem>::class.java)
         }
 
