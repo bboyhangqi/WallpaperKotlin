@@ -89,7 +89,7 @@ class CustomPreviewImageView(context: Context?, attrs: AttributeSet?) : ImageVie
 
             mMatrix.setScale(scale, scale)
             if (translateX < -9999f) {
-                translateX = vWidth / 2f
+                translateX = (dWidth * scale - vWidth) / 2f
             }
 
             if (translateX > dWidth * scale - vWidth) {
