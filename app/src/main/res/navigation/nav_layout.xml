@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_layout"
+    app:startDestination="@id/mainFragment">
+
+    <fragment
+        android:id="@+id/previewFragment"
+        android:name="app.mumandroidproject.ui.fragment.PreviewFragment"
+        android:label="fragment_preview"
+        tools:layout="@layout/fragment_preview" />
+    <fragment
+        android:id="@+id/columeFragment"
+        android:name="app.mumandroidproject.ui.fragment.ColumeFragment"
+        android:label="fragment_colume"
+        tools:layout="@layout/fragment_colume" >
+        <action
+            android:id="@+id/action_columeFragment_to_previewFragment2"
+            app:destination="@id/previewFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="app.mumandroidproject.ui.fragment.MainFragment"
+        android:label="fragment_main"
+        tools:layout="@layout/main_fragment" >
+        <action
+            android:id="@+id/action_mainFragment_to_columeFragment"
+            app:destination="@id/columeFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_previewFragment"
+            app:destination="@id/previewFragment" />
+    </fragment>
+</navigation>

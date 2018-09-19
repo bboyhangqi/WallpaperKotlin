@@ -6,7 +6,7 @@ apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 27
-    buildToolsVersion "27.0.3"
+    buildToolsVersion '28.0.2'
     defaultConfig {
         applicationId "app.mumandroidproject"
         minSdkVersion 21
@@ -23,6 +23,7 @@ android {
     }
 }
 
+def nav_version = "1.0.0-alpha05"
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
@@ -32,9 +33,11 @@ dependencies {
     implementation 'com.android.support:design:27.1.0'
     implementation 'com.google.firebase:firebase-database:11.8.0'
     implementation "com.android.support:support-compat:27.1.1"
+    implementation 'android.arch.lifecycle:extensions:1.1.1'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    androidTestImplementation 'com.android.support.test:testing-support-lib:0.1'
 
     implementation 'com.android.volley:volley:1.1.0'
     implementation 'com.github.bumptech.glide:glide:4.6.1'
@@ -51,6 +54,12 @@ dependencies {
 
     implementation 'com.firebase:firebase-client-android:2.5.0'
     implementation 'com.google.firebase:firebase-core'
+
+    // use -ktx for Kotlin
+    //implementation 'androidx.core:core-ktx:1.0.0-alpha1'
+    implementation "android.arch.navigation:navigation-fragment:$nav_version" // use -ktx for Kotlin
+    implementation "android.arch.navigation:navigation-ui:$nav_version" // use -ktx for Kotlin
+    androidTestImplementation "android.arch.navigation:navigation-testing:$nav_version"
 
 }
 
