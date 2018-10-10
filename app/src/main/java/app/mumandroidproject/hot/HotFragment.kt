@@ -41,12 +41,12 @@ class HotFragment : Fragment(), HotView {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        hotPresenter.getWallpaperList()
         return inflater.inflate(R.layout.fragment_hot, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        hotPresenter.getWallpaperList()
     }
 
     override fun onStart() {
