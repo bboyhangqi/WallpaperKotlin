@@ -1,4 +1,4 @@
-package app.mumandroidproject.ui.fragment
+package app.mumandroidproject.category
 
 
 import android.os.Bundle
@@ -10,20 +10,19 @@ import android.view.ViewGroup
 
 import app.mumandroidproject.R
 import app.mumandroidproject.bean.WallpaperCategory
-import app.mumandroidproject.presenter.CategoryPresenter
-import app.mumandroidproject.ui.adpter.CategoryAdapter
-import app.mumandroidproject.view.CategoryView
 import kotlinx.android.synthetic.main.fragment_category.*
+import javax.inject.Inject
 
 
 /**
  * A simple [Fragment] subclass.
  */
-class CategoryFragment : Fragment() , CategoryView {
+class CategoryFragment : Fragment(), CategoryView {
 
     private val TAG = "CategoryFragment"
 
-    private var categoryPresenter = CategoryPresenter(this)
+    @Inject
+    lateinit var categoryPresenter: CategoryPresenter
 
     object HOLDER {
         val INSTANCE by lazy { CategoryFragment() }
@@ -31,6 +30,13 @@ class CategoryFragment : Fragment() , CategoryView {
 
     companion object {
         val instance = HOLDER.INSTANCE
+    }
+
+    init {
+        DaggerCategoryComponent.builder()
+                .categoryViewModule(CategoryViewModule(this))
+                .build()
+                .inject(this)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -42,13 +48,13 @@ class CategoryFragment : Fragment() , CategoryView {
         getCategories()
     }
 
-    private fun getCategories(){
+    private fun getCategories() {
         categoryPresenter.getCategories()
     }
 
     override fun onCategoriesReady(categories: List<WallpaperCategory>) {
         val categoryAdapter = CategoryAdapter(categories)
-        rv.layoutManager = LinearLayoutManager(CategoryFragment.instance.context)
+        rv.layoutManager = LinearLayoutManager(instance.context)
         rv.adapter = categoryAdapter
     }
 }

@@ -1,4 +1,4 @@
-package app.mumandroidproject.ui.adpter
+package app.mumandroidproject.local
 
 import android.content.Intent
 import android.graphics.Point
@@ -9,15 +9,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import app.mumandroidproject.R
 import app.mumandroidproject.bean.LocalImageItem
 import app.mumandroidproject.extension.loadByGlideFromLocal
-import app.mumandroidproject.helper.LocalHelper
-import app.mumandroidproject.helper.SharePerferenceHelper
-import app.mumandroidproject.presenter.LocalPresenter
-import app.mumandroidproject.ui.activity.PreviewActivity
+import app.mumandroidproject.preview.PreviewActivity
 import app.mumandroidproject.ui.dialog.PresentationDialog
 
 /**

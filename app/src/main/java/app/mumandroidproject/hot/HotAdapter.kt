@@ -1,8 +1,7 @@
-package app.mumandroidproject.ui.adpter
+package app.mumandroidproject.hot
 
 import android.content.Intent
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,14 +10,12 @@ import android.widget.TextView
 import app.mumandroidproject.R
 import app.mumandroidproject.bean.WallpaperItem
 import app.mumandroidproject.extension.loadByGlide
-import app.mumandroidproject.ui.activity.ColumnActivity
-import app.mumandroidproject.ui.activity.PreviewActivity
-import java.util.*
+import app.mumandroidproject.preview.PreviewActivity
 
 /**
  * Created by CodingHome on 4/16/18.
  */
-class HotAdapter(var data: MutableList<WallpaperItem>) : RecyclerView.Adapter<HotAdapter.ViewHolder>() {
+class HotAdapter(var data: List<WallpaperItem>) : RecyclerView.Adapter<HotAdapter.ViewHolder>() {
 
     override fun getItemCount(): Int {
         return data.size

@@ -1,4 +1,4 @@
-package app.mumandroidproject.presenter
+package app.mumandroidproject.local
 
 import android.content.Context
 import android.util.Log
@@ -6,10 +6,7 @@ import app.mumandroidproject.bean.LocalImageItem
 import app.mumandroidproject.bean.WallpaperItem
 import app.mumandroidproject.helper.LocalHelper
 import app.mumandroidproject.helper.SharePerferenceHelper
-import app.mumandroidproject.helper.WallpaperHelper
 import app.mumandroidproject.model.WallpaperModel
-import app.mumandroidproject.ui.dialog.PresentationDialog
-import app.mumandroidproject.view.LocalView
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener

@@ -1,4 +1,4 @@
-package app.mumandroidproject.ui.adpter
+package app.mumandroidproject.local
 
 import android.content.Intent
 import android.graphics.Point
@@ -8,18 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import app.mumandroidproject.R
-import app.mumandroidproject.bean.LocalImageItem
 import app.mumandroidproject.bean.WallpaperItem
-import app.mumandroidproject.extension.loadByGlide
-import app.mumandroidproject.extension.loadByGlideFromLocal
 import app.mumandroidproject.extension.loadByGlideWithoutAnimation
-import app.mumandroidproject.helper.LocalHelper
-import app.mumandroidproject.helper.SharePerferenceHelper
-import app.mumandroidproject.presenter.LocalPresenter
-import app.mumandroidproject.ui.activity.PreviewActivity
+import app.mumandroidproject.preview.PreviewActivity
 import app.mumandroidproject.ui.dialog.PresentationDialog
 
 /**
@@ -60,7 +53,7 @@ class CollectAdapter(var data: Array<WallpaperItem>, windowManager: WindowManage
         return itemList.size
     }
 
-    override fun onBindViewHolder(holder: CollectAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val imageWidth: Int
         holder.iv1.visibility = View.VISIBLE
         imageWidth = screenWidth / 2 - 30

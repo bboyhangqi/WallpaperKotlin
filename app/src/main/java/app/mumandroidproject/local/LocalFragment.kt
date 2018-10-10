@@ -1,7 +1,6 @@
-package app.mumandroidproject.ui.fragment
+package app.mumandroidproject.local
 
 
-import android.annotation.SuppressLint
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -17,14 +16,8 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 
 import app.mumandroidproject.R
-import app.mumandroidproject.bean.LocalImageItem
 import app.mumandroidproject.constant.Constant
-import app.mumandroidproject.helper.LocalHelper
 import app.mumandroidproject.helper.SharePerferenceHelper
-import app.mumandroidproject.presenter.LocalPresenter
-import app.mumandroidproject.ui.adpter.CollectAdapter
-import app.mumandroidproject.ui.adpter.DownloadAdapter
-import app.mumandroidproject.view.LocalView
 import kotlinx.android.synthetic.main.fragment_local.*
 
 

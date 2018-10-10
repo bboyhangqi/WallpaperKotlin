@@ -1,28 +1,19 @@
-package app.mumandroidproject.presenter
+package app.mumandroidproject.category
 
-import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import app.mumandroidproject.R
 import app.mumandroidproject.bean.WallpaperCategory
-import app.mumandroidproject.bean.WallpaperItem
 import app.mumandroidproject.constant.Constant
 import app.mumandroidproject.model.WallpaperModel
-import app.mumandroidproject.ui.adpter.CategoryAdapter
-import app.mumandroidproject.ui.adpter.HotAdapter
-import app.mumandroidproject.ui.fragment.CategoryFragment
-import app.mumandroidproject.ui.fragment.HotFragment
-import app.mumandroidproject.view.CategoryView
-import app.mumandroidproject.view.ColumnView
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
-import kotlinx.android.synthetic.main.fragment_category.*
-import java.util.*
+import javax.inject.Inject
 
 /**
  * Created by CodingHome on 4/18/18.
  */
-class CategoryPresenter(var categoryView: CategoryView) {
+class CategoryPresenter @Inject constructor(private var categoryView: CategoryView) {
 
     fun getCategories() {
         val categoryList = mutableListOf<WallpaperCategory>()

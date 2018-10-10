@@ -1,14 +1,13 @@
-package app.mumandroidproject.ui.activity
+package app.mumandroidproject.colum
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import app.mumandroidproject.R
 import app.mumandroidproject.bean.WallpaperItem
-import app.mumandroidproject.presenter.CategoryPresenter
-import app.mumandroidproject.presenter.ColumPresenter
-import app.mumandroidproject.ui.adpter.ColumnAdapter
-import app.mumandroidproject.view.ColumnView
+import app.mumandroidproject.colum.ColumPresenter
+import app.mumandroidproject.colum.ColumnAdapter
+import app.mumandroidproject.colum.ColumnView
 import kotlinx.android.synthetic.main.activity_column.*
 
 class ColumnActivity : AppCompatActivity(), ColumnView {

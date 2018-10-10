@@ -1,4 +1,4 @@
-package app.mumandroidproject.ui.adpter
+package app.mumandroidproject.category
 
 import android.content.Intent
 import android.support.v7.widget.RecyclerView
@@ -9,7 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import app.mumandroidproject.R
 import app.mumandroidproject.bean.WallpaperCategory
-import app.mumandroidproject.ui.activity.ColumnActivity
+import app.mumandroidproject.colum.ColumnActivity
 
 /**
  * Created by CodingHome on 4/16/18.

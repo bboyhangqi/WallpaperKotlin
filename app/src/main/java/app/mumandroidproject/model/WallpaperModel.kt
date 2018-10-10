@@ -1,14 +1,7 @@
 package app.mumandroidproject.model
 
-import app.mumandroidproject.R
-import android.os.Handler
-import android.util.Log
-import app.mumandroidproject.bean.WallpaperCategory
 import app.mumandroidproject.bean.WallpaperItem
 import com.google.firebase.database.*
-import com.google.firebase.database.DataSnapshot
-import java.util.*
-import app.mumandroidproject.constant.Constant
 
 /**
  * Created by CodingHome on 4/14/18.

@@ -1,4 +1,4 @@
-package app.mumandroidproject.view
+package app.mumandroidproject.category
 
 import app.mumandroidproject.bean.WallpaperCategory
 

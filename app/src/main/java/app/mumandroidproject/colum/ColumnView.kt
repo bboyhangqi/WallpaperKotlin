@@ -1,4 +1,4 @@
-package app.mumandroidproject.view
+package app.mumandroidproject.colum
 
 import app.mumandroidproject.bean.WallpaperItem
 

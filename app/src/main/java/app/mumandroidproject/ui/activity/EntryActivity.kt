@@ -14,9 +14,9 @@ import android.widget.Toast
 import app.mumandroidproject.R
 import app.mumandroidproject.constant.Constant
 import app.mumandroidproject.helper.PermissionHelp
-import app.mumandroidproject.ui.fragment.LocalFragment
-import app.mumandroidproject.ui.fragment.CategoryFragment
-import app.mumandroidproject.ui.fragment.HotFragment
+import app.mumandroidproject.local.LocalFragment
+import app.mumandroidproject.category.CategoryFragment
+import app.mumandroidproject.hot.HotFragment
 import kotlinx.android.synthetic.main.activity_entry.*
 import kotlinx.android.synthetic.main.navigation_bar.*
 

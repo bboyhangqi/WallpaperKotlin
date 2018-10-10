@@ -1,6 +1,5 @@
-package app.mumandroidproject.ui.adpter
+package app.mumandroidproject.colum
 
-import android.content.Context
 import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.widget.LinearLayout
@@ -13,7 +12,7 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import app.mumandroidproject.R
 import app.mumandroidproject.extension.loadByGlide
-import app.mumandroidproject.ui.activity.PreviewActivity
+import app.mumandroidproject.preview.PreviewActivity
 
 
 /**

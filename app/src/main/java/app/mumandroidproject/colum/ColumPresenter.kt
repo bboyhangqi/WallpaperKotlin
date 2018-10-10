@@ -1,9 +1,8 @@
-package app.mumandroidproject.presenter
+package app.mumandroidproject.colum
 
 import android.util.Log
 import app.mumandroidproject.bean.WallpaperItem
 import app.mumandroidproject.model.WallpaperModel
-import app.mumandroidproject.view.ColumnView
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener

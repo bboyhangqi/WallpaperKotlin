@@ -1,4 +1,4 @@
-package app.mumandroidproject.ui.activity
+package app.mumandroidproject.preview
 
 import android.content.Intent
 import android.graphics.Bitmap
@@ -19,11 +19,8 @@ import app.mumandroidproject.bean.WallpaperItem
 import app.mumandroidproject.constant.Constant
 import app.mumandroidproject.extension.loadByGlideFromLocal
 import app.mumandroidproject.helper.NotificationHelper
-import app.mumandroidproject.presenter.PreviewPresenter
-import app.mumandroidproject.view.PreviewView
 import com.nineoldandroids.animation.AnimatorSet
 import com.nineoldandroids.animation.ObjectAnimator
-import kotlinx.android.synthetic.main.activity_wellcome.*
 
 
 class PreviewActivity : AppCompatActivity(), RequestListener<Bitmap>, PreviewView {

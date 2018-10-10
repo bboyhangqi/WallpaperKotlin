@@ -1,4 +1,4 @@
-package app.mumandroidproject.view
+package app.mumandroidproject.preview
 
 /**
  * Created by CodingHome on 4/24/18.
