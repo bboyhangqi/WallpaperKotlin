@@ -75,6 +75,10 @@ class LocalFragment : Fragment(), LocalView {
             showCollectedPage()
         }
         showDownloadedPage()
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         intentFilter.addAction(Constant.BROADCAST_ACTION.ACTION_IMAGE_DOWNLOADED)
         intentFilter.addAction(Constant.BROADCAST_ACTION.ACTION_IMAGE_COLLECTED)
         activity?.registerReceiver(broadcastReceiver, intentFilter)

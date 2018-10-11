@@ -34,9 +34,9 @@ class CategoryFragment : Fragment(), CategoryView {
 
     init {
         DaggerCategoryComponent.builder()
-                .categoryViewModule(CategoryViewModule(this))
                 .build()
                 .inject(this)
+        categoryPresenter.setView(this)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

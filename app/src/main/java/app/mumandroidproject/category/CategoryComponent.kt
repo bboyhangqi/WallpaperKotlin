@@ -2,7 +2,7 @@ package app.mumandroidproject.category
 
 import dagger.Component
 
-@Component(modules = arrayOf(CategoryViewModule::class))
+@Component
 interface CategoryComponent {
 
     fun inject(categoryFragment: CategoryFragment)

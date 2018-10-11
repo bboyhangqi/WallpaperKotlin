@@ -5,6 +5,8 @@ import app.mumandroidproject.R
 import app.mumandroidproject.bean.WallpaperCategory
 import app.mumandroidproject.constant.Constant
 import app.mumandroidproject.model.WallpaperModel
+import app.mumandroidproject.mvp.BasePresenter
+import app.mumandroidproject.mvp.BaseView
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -13,9 +15,16 @@ import javax.inject.Inject
 /**
  * Created by CodingHome on 4/18/18.
  */
-class CategoryPresenter @Inject constructor(private var categoryView: CategoryView) {
+class CategoryPresenter @Inject constructor() : BasePresenter {
+
+    private var categoryView: CategoryView? = null
+
+    override fun setView(baseView: BaseView) {
+        this.categoryView = baseView as CategoryView
+    }
 
     fun getCategories() {
+        if (categoryView == null) return
         val categoryList = mutableListOf<WallpaperCategory>()
         categoryList.add(WallpaperCategory(R.drawable.cid_meinv, Constant.CATEGORY.REQUEST_ID_BELLE, "BELLE", "", ""))
         categoryList.add(WallpaperCategory(R.drawable.cid_qichce, Constant.CATEGORY.REQUEST_ID_CAR, "CAR", "", ""))
@@ -35,7 +44,7 @@ class CategoryPresenter @Inject constructor(private var categoryView: CategoryVi
         WallpaperModel.instance.getCategories(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 dataSnapshot.children.forEachIndexed { index, dataSnapshot -> categoryList[index].count = dataSnapshot.value.toString() }
-                categoryView.onCategoriesReady(categoryList)
+                categoryView?.onCategoriesReady(categoryList)
                 dataSnapshot.ref.removeEventListener(this)
             }
 

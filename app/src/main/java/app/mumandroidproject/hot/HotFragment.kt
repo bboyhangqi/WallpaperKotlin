@@ -37,7 +37,7 @@ class HotFragment : Fragment(), HotView {
         DaggerHotPresenterComponent.builder()
                 .build()
                 .inject(this)
-        hotPresenter.setHotView(this)
+        hotPresenter.setView(this)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

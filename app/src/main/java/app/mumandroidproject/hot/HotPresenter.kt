@@ -3,15 +3,18 @@ package app.mumandroidproject.hot
 import android.util.Log
 import app.mumandroidproject.bean.WallpaperItem
 import app.mumandroidproject.model.WallpaperModel
+import app.mumandroidproject.mvp.BasePresenter
+import app.mumandroidproject.mvp.BaseView
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 
-class HotPresenter constructor(private var wallpaperModel: WallpaperModel) {
+class HotPresenter constructor(private var wallpaperModel: WallpaperModel) : BasePresenter {
+
+    private var hotView: HotView? = null
 
     private var wallpaperList: MutableList<WallpaperItem> = mutableListOf()
 
-    private var hotView: HotView? = null
 
     companion object {
         private var instance: HotPresenter? = null
@@ -24,8 +27,8 @@ class HotPresenter constructor(private var wallpaperModel: WallpaperModel) {
         }
     }
 
-    fun setHotView(hotView: HotView) {
-        this.hotView = hotView
+    override fun setView(baseView: BaseView) {
+        this.hotView = baseView as HotView
     }
 
 
