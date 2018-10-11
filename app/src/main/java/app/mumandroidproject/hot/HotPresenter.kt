@@ -6,17 +6,35 @@ import app.mumandroidproject.model.WallpaperModel
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
-import javax.inject.Inject
 
-class HotPresenter @Inject constructor(private var hotView: HotView, private var wallpaperModel: WallpaperModel) {
+class HotPresenter constructor(private var wallpaperModel: WallpaperModel) {
 
     private var wallpaperList: MutableList<WallpaperItem> = mutableListOf()
 
+    private var hotView: HotView? = null
+
+    companion object {
+        private var instance: HotPresenter? = null
+
+        fun getInstance(wallpaperModel: WallpaperModel): HotPresenter {
+            if (instance == null) {
+                instance = HotPresenter(wallpaperModel)
+            }
+            return instance!!
+        }
+    }
+
+    fun setHotView(hotView: HotView) {
+        this.hotView = hotView
+    }
+
 
     fun getWallpaperList() {
+        if (hotView == null) return
 
-        if(!wallpaperList.isEmpty()){
-            hotView.updateHotWallpaperList(wallpaperList.toList())
+        if (!wallpaperList.isEmpty()) {
+            Log.d("zhq.debug", "..use old data......")
+            hotView?.updateHotWallpaperList(wallpaperList.toList())
             return
         }
 
@@ -26,7 +44,7 @@ class HotPresenter @Inject constructor(private var hotView: HotView, private var
             }
 
             override fun onDataChange(dataSnapshot: DataSnapshot?) {
-                Log.d("zhq.debug onDataChange","..in......")
+                Log.d("zhq.debug onDataChange", "..in......")
                 if (dataSnapshot == null) return
                 wallpaperList.clear()
                 for (postSnapshot in dataSnapshot.getChildren()) {
@@ -35,7 +53,7 @@ class HotPresenter @Inject constructor(private var hotView: HotView, private var
                         wallpaperList.add(wallpaper)
                     }
                 }
-                hotView.updateHotWallpaperList(wallpaperList.toList())
+                hotView?.updateHotWallpaperList(wallpaperList.toList())
             }
         })
 

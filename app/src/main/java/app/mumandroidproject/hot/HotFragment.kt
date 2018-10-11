@@ -4,6 +4,8 @@ package app.mumandroidproject.hot
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,10 +35,9 @@ class HotFragment : Fragment(), HotView {
 
     init {
         DaggerHotPresenterComponent.builder()
-                .hotViewModule(HotViewModule(this))
                 .build()
                 .inject(this)
-
+        hotPresenter.setHotView(this)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -49,15 +50,29 @@ class HotFragment : Fragment(), HotView {
         hotPresenter.getWallpaperList()
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
+
     override fun onStart() {
         super.onStart()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+    }
+
+    private var hotAdapter: HotAdapter? = null
 
     override fun updateHotWallpaperList(list: List<WallpaperItem>) {
-        val hotAdapter = HotAdapter(list)
-        rv.layoutManager = LinearLayoutManager(context)
-        rv.adapter = hotAdapter
+        if (hotAdapter == null) {
+            hotAdapter = HotAdapter(list)
+            rv.layoutManager = LinearLayoutManager(context)
+            rv.adapter = hotAdapter
+        } else {
+            hotAdapter?.data = list
+            hotAdapter?.notifyDataSetChanged()
+        }
     }
 
 

@@ -2,6 +2,7 @@ package app.mumandroidproject.hot
 
 import android.content.Intent
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +18,7 @@ import app.mumandroidproject.preview.PreviewActivity
  */
 class HotAdapter(var data: List<WallpaperItem>) : RecyclerView.Adapter<HotAdapter.ViewHolder>() {
 
+
     override fun getItemCount(): Int {
         return data.size
     }
@@ -31,7 +33,8 @@ class HotAdapter(var data: List<WallpaperItem>) : RecyclerView.Adapter<HotAdapte
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        var view = LayoutInflater.from(parent.context).inflate(R.layout.hot_item, parent, false)
+        Log.d("zhq.debug","..onCreateViewHolder......")
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.hot_item, parent, false)
         return ViewHolder(view)
     }
 

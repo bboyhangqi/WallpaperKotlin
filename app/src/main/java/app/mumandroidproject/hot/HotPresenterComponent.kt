@@ -2,8 +2,10 @@ package app.mumandroidproject.hot
 
 import app.mumandroidproject.model.WallpaperModelModule
 import dagger.Component
+import javax.inject.Singleton
 
-@Component(modules = arrayOf(WallpaperModelModule::class, HotViewModule::class))
+@Singleton
+@Component(modules = arrayOf(WallpaperModelModule::class, HotPresenterModule::class))
 interface HotPresenterComponent {
 
     fun inject(hotFragment: HotFragment)
